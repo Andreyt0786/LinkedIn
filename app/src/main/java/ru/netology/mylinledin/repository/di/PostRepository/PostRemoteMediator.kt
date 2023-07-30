@@ -24,7 +24,7 @@ class PostRemoteMediator(
     private val appDb: AppDb,
 ) : RemoteMediator<Int, PostEntity>() {
 
-    override suspend fun initialize(): InitializeAction = InitializeAction.SKIP_INITIAL_REFRESH
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, PostEntity>
@@ -55,6 +55,8 @@ class PostRemoteMediator(
                 result.message()
             )
             val data = result.body().orEmpty()
+
+            if(data.isEmpty()) return MediatorResult.Success(false)
 
             appDb.withTransaction {
                 when (loadType) {

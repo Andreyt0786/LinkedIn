@@ -20,12 +20,13 @@ import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.viewModel.AuthViewModel
 import ru.netology.mylinledin.viewModel.IdenticViewModel
 import ru.netology.mylinledin.viewModel.PostViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthFragment(
-    private val appAuth: AppAuth
-) : Fragment() {
+class AuthFragment() : Fragment() {
 
+    @Inject
+    lateinit var appAuth: AppAuth
     private val identicViewModel: IdenticViewModel by viewModels()
     private val viewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()

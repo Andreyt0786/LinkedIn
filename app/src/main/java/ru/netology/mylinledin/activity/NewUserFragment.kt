@@ -23,9 +23,7 @@ import ru.netology.mylinledin.viewModel.IdenticViewModel
 import ru.netology.mylinledin.viewModel.PostViewModel
 
 @AndroidEntryPoint
-class NewUserFragment(
-    private val appAuth: AppAuth
-) : Fragment() {
+class NewUserFragment() : Fragment() {
 
     private val identicViewModel: IdenticViewModel by viewModels()
     private val viewModel: PostViewModel by activityViewModels()
