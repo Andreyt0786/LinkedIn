@@ -93,7 +93,7 @@ class FeedFragment : Fragment() {
             }
         })
 
-
+        binding.list.adapter = adapter
         viewModel.state.observe(viewLifecycleOwner) { state ->
             binding.progress.isVisible = state.loading
             binding.refreshView.isRefreshing = state.refreshing
@@ -144,7 +144,7 @@ class FeedFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
-
+/*
         binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostLoadingStateAdapter {
                 adapter.retry()
@@ -152,7 +152,7 @@ class FeedFragment : Fragment() {
             footer = PostLoadingStateAdapter {
                 adapter.retry()
             }
-        )
+        )*/
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.refreshView.isRefreshing =
@@ -164,27 +164,14 @@ class FeedFragment : Fragment() {
             adapter.refresh()
         }
 
-        binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
-            when (item.itemId) {
-                R.id.add_post -> {
-                    if (authViewModel.isAuthorized) {
-                        findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
-                    } else {
-                        findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                    }
-                }
+        binding.fab.setOnClickListener {
+          //  if (authViewModel.isAuthorized) {
+                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+          //  } else {
+          //      findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+           // }
 
-                R.id.job -> {
-                    if (authViewModel.isAuthorized) {
-                        findNavController().navigate(R.id.action_feedFragment_to_jobFragment)
-                    } else {
-                        findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                    }
-                }
-            }
         }
-
-
 
 
         return binding.root

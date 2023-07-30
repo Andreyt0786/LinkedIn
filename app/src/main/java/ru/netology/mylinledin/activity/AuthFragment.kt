@@ -66,7 +66,7 @@ class AuthFragment() : Fragment() {
                 }
         })
 
-        if (authViewModel.isAuthorized) {
+        if (!authViewModel.isAuthorized) {
             binding.enter.setOnClickListener {
                 identicViewModel.getIdToken(
                     binding.login.text.toString().trim(),

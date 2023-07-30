@@ -56,17 +56,6 @@ class PostViewModel @Inject constructor(
         }
     }.flowOn(Dispatchers.Default)
 
-    /*.map { posts ->
-        posts.map { post ->
-            if (post is Post) {
-                post.copy(ownedByMe = post.authorId == id)
-            } else {
-                post
-            }
-        }
-    }
-}.flowOn(Dispatchers.Default)*/
-
 
     private val _mediaState = MutableLiveData<MediaModel?>()
     val mediaState: LiveData<MediaModel?>
@@ -82,6 +71,7 @@ class PostViewModel @Inject constructor(
     init {
         loadPosts()
     }
+
 
 
     fun loadPosts() = viewModelScope.launch {

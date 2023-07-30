@@ -46,7 +46,7 @@
     <string name="job"> работа</string>
     <string name="content_description_job"> кнопка работа</string>
     <string name="passWord2">Повторите пароль</string>
-    <string name="name">Введите пароль</string>
+    <string name="name">Введите имя</string>
     <string name="error_pass">Введенные пароли разные</string>
     <string name="description_play_buttom">кнопка воспроизведения</string>
     <string name="description_full_screen">весь экран</string>

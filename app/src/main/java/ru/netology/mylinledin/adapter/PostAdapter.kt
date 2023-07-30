@@ -33,13 +33,9 @@ interface OnInteractionListener {
 
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
-        if (oldItem::class != newItem::class) {
-            return false
-        }
         return oldItem.id == newItem.id
     }
 
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem == newItem
     }
