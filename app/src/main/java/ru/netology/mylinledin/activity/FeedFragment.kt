@@ -165,7 +165,9 @@ class FeedFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.refreshView.isRefreshing =
-                    state.refresh is LoadState.Loading
+                    state.refresh is LoadState.Loading ||
+                            state.prepend is LoadState.Loading ||
+                            state.append is LoadState.Loading
             }
         }
 
@@ -174,11 +176,11 @@ class FeedFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-          //  if (authViewModel.isAuthorized) {
+           if (authViewModel.isAuthorized) {
                 findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
-          //  } else {
-          //      findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-           // }
+           } else {
+                findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+           }
 
         }
 

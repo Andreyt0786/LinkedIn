@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_feedFragment_to_jobFragment"
             app:destination="@id/jobFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_newSendPostFragment"
+            app:destination="@id/newSendPostFragment" />
 
     </fragment>
     <fragment
@@ -98,6 +101,15 @@
         tools:layout="@layout/fragment_job" >
         <action
             android:id="@+id/action_jobFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newSendPostFragment"
+        android:name="ru.netology.mylinledin.activity.NewSendPostFragment"
+        android:label="fragment_new_post_send"
+        tools:layout="@layout/fragment_new_post_send" >
+        <action
+            android:id="@+id/action_newSendPostFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
     </fragment>
 </navigation>
