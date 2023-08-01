@@ -56,7 +56,7 @@ class PhotoFragment : Fragment() {
 
         }, viewLifecycleOwner)
 
-        val urlImage = "${"https://netomedia.ru"}/media/${arguments?.textArg}"
+        val urlImage = arguments?.textArg
         Glide.with(binding.photoPreview)
             .load(urlImage)
             .timeout(10000)

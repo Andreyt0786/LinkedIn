@@ -93,6 +93,15 @@ class FeedFragment : Fragment() {
             }
         })
 
+        viewModel.edited.observe(viewLifecycleOwner) { post ->
+            if (post.id == 0) {
+                return@observe
+            }
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
+                Bundle().apply { textArg = post.content })
+
+        }
+
         binding.list.adapter = adapter
         viewModel.state.observe(viewLifecycleOwner) { state ->
             binding.progress.isVisible = state.loading

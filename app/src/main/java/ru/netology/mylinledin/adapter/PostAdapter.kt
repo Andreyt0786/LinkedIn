@@ -52,7 +52,7 @@ class PostAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = getItem(position)?:return
+        val post = getItem(position) ?: return
         holder.bind(post)
     }
 }
@@ -64,115 +64,124 @@ class PostViewHolder(
 
 
     fun bind(post: Post) {
-        val url = "${"https://netomedia.ru"}/avatars/${post.authorAvatar}"
-        Glide.with(binding.avatar)
-            .load(url)
-            .timeout(10000)
-            .circleCrop()
-            .into(binding.avatar)
+        /*  val url = post.authorAvatar
+          Glide.with(binding.avatar)
+              .load(url)
+              .timeout(10000)
+              .circleCrop()
+              .into(binding.avatar)*/
 
-        if (post.attachment?.type == AttachmentType.IMAGE) {
-            val urlImage = "${"https://netomedia.ru"}/media/${post.attachment?.url}"
 
-            if (urlImage == null && post.attachment?.type == AttachmentType.IMAGE) {
-                binding.imageHolder.isVisible = false
-            } else {
-                binding.imageHolder.isVisible = true
-            }
+        binding.apply {
+            author.text = post.author
+            published.text = post.published
+            content.text = post.content
+            // в адаптере
+            like.isChecked = post.likedByMe
+            menu.isVisible = post.ownedByMe
 
-            Glide.with(binding.imageHolder)
-                .load(urlImage)
+            val url = post.authorAvatar
+            Glide.with(binding.avatar)
+                .load(url)
                 .timeout(10000)
                 .circleCrop()
-                .into(binding.imageHolder)
-        }
+                .into(binding.avatar)
 
 
-        if (post.attachment?.type == AttachmentType.VIDEO) {
-            val urlVideo = "${"https://netomedia.ru"}/media/${post.attachment?.url}"
+            if (post.attachment?.type == AttachmentType.IMAGE) {
+                val urlImage = post.attachment.url
+                binding.imageHolder.isVisible = true
 
-            if (urlVideo != null && post.attachment?.type == AttachmentType.VIDEO) {
-                binding.video.isVisible = true
-                binding.playButtom.isVisible = true
-                binding.fullScreen.isVisible = true
+                Glide.with(binding.imageHolder)
+                    .load(urlImage)
+                    .timeout(10000)
+                    .circleCrop()
+                    .into(binding.imageHolder)
+            } else {
+                binding.imageHolder.isVisible = false
             }
 
-            binding.playButtom.setOnClickListener {
-                binding.video.apply {
-                    // Удален MediaController
+                if (post.attachment?.type == AttachmentType.VIDEO) {
+                    val urlVideo = post.attachment.url
 
-                    setVideoURI(
-                        Uri.parse(urlVideo)
-                    )
-                    setOnPreparedListener {
-                        start()
+                    binding.video.isVisible = true
+                    binding.playButtom.isVisible = true
+                    binding.fullScreen.isVisible = true
+
+                    binding.playButtom.setOnClickListener {
+                        binding.video.apply {
+                            // Удален MediaController
+
+                            setVideoURI(
+                                Uri.parse(post.attachment.url)
+                            )
+                            setOnPreparedListener {
+                                start()
+                            }
+                            setOnCompletionListener {
+                                stopPlayback()
+                            }
+                        }
                     }
-                    setOnCompletionListener {
-                        stopPlayback()
-                    }
+                } else {
+                    binding.video.isVisible = false
+                    binding.playButtom.isVisible = false
+                    binding.fullScreen.isVisible = false
                 }
 
                 if (post.attachment?.type == AttachmentType.AUDIO) {
-                    val urlAudio = "${"https://netomedia.ru"}/media/${post.attachment?.url}"
-
-                    if (urlAudio != null && post.attachment?.type == AttachmentType.AUDIO) {
+                    val urlAudio =post.attachment.url
                         binding.play.isVisible = true
+                    } else {
+                        binding.play.isVisible = false
                     }
 
-                    binding.apply {
-                        author.text = post.author
-                        published.text = post.published
-                        content.text = post.content
-                        // в адаптере
-                        like.isChecked = post.likedByMe
-                        menu.isVisible = post.ownedByMe
 
-                        menu.setOnClickListener {
-                            PopupMenu(it.context, it).apply {
-                                inflate(R.menu.options_post)
-                                setOnMenuItemClickListener { item ->
-                                    when (item.itemId) {
-                                        R.id.remove -> {
-                                            onInteractionListener.onRemove(post)
-                                            true
-                                        }
 
-                                        R.id.edit -> {
-                                            onInteractionListener.onEdit(post)
-                                            true
-                                        }
-
-                                        else -> false
-                                    }
+                menu.setOnClickListener {
+                    PopupMenu(it.context, it).apply {
+                        inflate(R.menu.options_post)
+                        setOnMenuItemClickListener { item ->
+                            when (item.itemId) {
+                                R.id.remove -> {
+                                    onInteractionListener.onRemove(post)
+                                    true
                                 }
-                            }.show()
-                        }
 
-                        imageHolder.setOnClickListener {
-                            onInteractionListener.previewPhoto(post)
-                        }
+                                R.id.edit -> {
+                                    onInteractionListener.onEdit(post)
+                                    true
+                                }
 
-                        like.setOnClickListener {
-                            onInteractionListener.onLike(post)
+                                else -> false
+                            }
                         }
+                    }.show()
+                }
 
-                        share.setOnClickListener {
-                            onInteractionListener.onShare(post)
-                        }
+                imageHolder.setOnClickListener {
+                    onInteractionListener.previewPhoto(post)
+                }
 
-                        fullScreen.setOnClickListener {
-                            onInteractionListener.playVideo(post)
-                        }
+                like.setOnClickListener {
+                    onInteractionListener.onLike(post)
+                }
 
-                        play.setOnClickListener {
-                            onInteractionListener.playMusic(post)
-                        }
-                    }
+                share.setOnClickListener {
+                    onInteractionListener.onShare(post)
+                }
+
+                video.setOnClickListener {
+                    onInteractionListener.playVideo(post)
+                }
+
+                play.setOnClickListener {
+                    onInteractionListener.playMusic(post)
                 }
             }
         }
     }
-}
+
 
 
 

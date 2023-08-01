@@ -12,6 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.netology.mylinledin.dto.posts.Media
 import ru.netology.mylinledin.dto.posts.Post
+import java.io.File
 
 interface ApiPostService {
 

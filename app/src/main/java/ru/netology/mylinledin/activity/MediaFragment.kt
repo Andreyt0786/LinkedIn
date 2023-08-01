@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.mylinledin.R
+import ru.netology.mylinledin.activity.PhotoFragment.Companion.textArg
 import ru.netology.mylinledin.databinding.FragmentMediaBinding
 import ru.netology.mylinledin.util.StringArg
 
@@ -57,21 +58,21 @@ class MediaFragment : Fragment() {
 
         }, viewLifecycleOwner)
 
-        val urlImage = "${"https://netomedia.ru"}/media/${arguments?.textArg}"
-        binding.playButtom.setOnClickListener {
-            binding.video.apply {
-                setMediaController(MediaController(activity))
-                setVideoURI(
-                    Uri.parse(urlImage)
-                )
-                setOnPreparedListener {
-                    start()
-                }
-                setOnCompletionListener {
-                    stopPlayback()
-                }
-            }
-        }
+
+      binding.video.setOnClickListener {
+          binding.video.apply {
+              setMediaController(MediaController(context))
+              setVideoURI(
+                  Uri.parse(arguments?.textArg)
+              )
+              setOnPreparedListener {
+                  start()
+              }
+              setOnCompletionListener {
+                  stopPlayback()
+              }
+          }
+      }
         return binding.root
     }
 }

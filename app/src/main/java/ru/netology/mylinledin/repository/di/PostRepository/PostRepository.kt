@@ -13,7 +13,7 @@ interface PostRepository {
     suspend fun save(post: Post)
     suspend fun removeById(id: Int)
     fun getNewer(id:Long): Flow<Int>
-    suspend fun saveWithAttachment(file: File, post:Post)
+    suspend fun saveWithAttachment(file: File, post: Post)
     suspend fun getToken(login:String?, password:String?): AuthModel
     suspend fun newUser (login:String, password:String, name: String): AuthModel
 

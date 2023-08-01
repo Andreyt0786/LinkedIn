@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)//база данных будет использоватьяс во всем приложении
 @Module
-class DbModule {
+object DbModule {
 
     @Singleton
     //для создания функции в ручную пишется аннотация

@@ -41,7 +41,7 @@ class PostRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     override val data: Flow<PagingData<Post>> = Pager(
-        config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+        config = PagingConfig(pageSize = 30, enablePlaceholders = false),
         pagingSourceFactory = { postDao.getPagingSource() },
         remoteMediator = PostRemoteMediator(
             apiPostService,
@@ -76,7 +76,7 @@ class PostRepositoryImpl @Inject constructor(
         return response.body() ?: throw ApiError(response.code(), response.message())
     }
 
-    override suspend fun saveWithAttachment(file: File, post: Post) {
+    override suspend fun saveWithAttachment(file: File,post :Post) {
         val media = upload(file)
         val posts = apiPostService.save(
             post.copy(

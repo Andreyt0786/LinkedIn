@@ -56,7 +56,7 @@ class PostRemoteMediator(
             )
             val data = result.body().orEmpty()
 
-            if(data.isEmpty()) return MediatorResult.Success(false)
+            if (data.isEmpty()) return MediatorResult.Success(false)
 
             appDb.withTransaction {
                 when (loadType) {
@@ -80,8 +80,8 @@ class PostRemoteMediator(
                     LoadType.APPEND -> {
                         postRemoteKeyDao.insert(
                             PostRemoteKeyEntity(
-                                PostRemoteKeyEntity.KeyType.BEFORE,
-                                body.last().id,
+                                type = PostRemoteKeyEntity.KeyType.BEFORE,
+                                key = body.last().id,
                             )
                         )
                     }

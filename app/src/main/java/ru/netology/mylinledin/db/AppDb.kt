@@ -7,7 +7,7 @@ import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
 import ru.netology.mylinledin.entity.PostEntity
 import ru.netology.mylinledin.entity.PostRemoteKeyEntity
 
-@Database(entities = [PostEntity::class, PostRemoteKeyEntity::class], version = 1)
+@Database(entities = [PostEntity::class, PostRemoteKeyEntity::class], version = 1, exportSchema = false)
 abstract class AppDb : RoomDatabase() {
     abstract fun postDao(): PostDao
     abstract fun postRemoteKeyDao(): PostRemoteKeyDao

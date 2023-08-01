@@ -105,7 +105,7 @@ class PostViewModel @Inject constructor(
             viewModelScope.launch {
                 try {
                     _mediaState.value?.let { mediaModel ->
-                        repository.saveWithAttachment(mediaModel.file, post)
+                       repository.saveWithAttachment(mediaModel.file, post)
                     } ?: repository.save(post)
                     _state.value = FeedModelState()
                 } catch (e: Exception) {
