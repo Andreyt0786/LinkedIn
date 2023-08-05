@@ -57,12 +57,12 @@ class FeedFragment : Fragment() {
                 if (authViewModel.isAuthorized) {
                     viewModel.likeById(post)
                 } else {
-                    findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+                    findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
                 }
             }
 
             override fun previewPhoto(post: Post) {
-                findNavController().navigate(R.id.action_feedFragment_to_photoFragment,
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_photoFragment,
                     Bundle().apply { textArg = post.attachment?.url })
             }
 
@@ -71,12 +71,12 @@ class FeedFragment : Fragment() {
             }
 
             override fun playVideo(post: Post) {
-                findNavController().navigate(R.id.action_feedFragment_to_mediaFragment,
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_mediaFragment,
                     Bundle().apply { textArg = post.attachment?.url })
             }
 
             override fun playMusic(post: Post) {
-                findNavController().navigate(R.id.action_feedFragment_to_musicFragment,
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_musicFragment,
                     Bundle().apply { textArg = post.attachment?.url })
             }
 
@@ -97,7 +97,7 @@ class FeedFragment : Fragment() {
             if (post.id == 0) {
                 return@observe
             }
-            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
+            findNavController().navigate(R.id.action_bottomNavigationFragment_to_newPostFragment,
                 Bundle().apply { textArg = post.content })
 
         }
@@ -128,17 +128,17 @@ class FeedFragment : Fragment() {
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
                         R.id.singIn -> {
-                            findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
                             true
                         }
 
                         R.id.singUp -> {
-                            findNavController().navigate(R.id.action_feedFragment_to_newUserFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_newUserFragment)
                             true
                         }
 
                         R.id.singOut -> {
-                            findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
                             true
                         }
 
@@ -166,7 +166,6 @@ class FeedFragment : Fragment() {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.refreshView.isRefreshing =
                     state.refresh is LoadState.Loading ||
-                            state.prepend is LoadState.Loading ||
                             state.append is LoadState.Loading
             }
         }
@@ -177,9 +176,9 @@ class FeedFragment : Fragment() {
 
         binding.fab.setOnClickListener {
            if (authViewModel.isAuthorized) {
-                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_newPostFragment)
            } else {
-                findNavController().navigate(R.id.action_feedFragment_to_authFragment)
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
            }
 
         }

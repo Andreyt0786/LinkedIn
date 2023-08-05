@@ -91,7 +91,8 @@ class NewUserFragment() : Fragment() {
         }
 
         binding.complete.setOnClickListener {
-            findNavController().navigate(R.id.action_newUserFragment_to_feedFragment)
+            //findNavController().navigate(R.id.action_newUserFragment_to_feedFragment)
+            findNavController().navigateUp()
             adapter.refresh()
         }
 

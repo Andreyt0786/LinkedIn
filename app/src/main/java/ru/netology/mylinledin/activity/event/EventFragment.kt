@@ -55,13 +55,13 @@ class EventFragment : Fragment() {
                     viewModel.likeByIdEvent(event)
                 } else {
                     findNavController().navigate(
-                        R.id.action_eventFragment_to_authFragment)
+                        R.id.action_bottomNavigationFragment_to_authFragment)
                 }
             }
 
             override fun previewPhoto(event:Event) {
                 findNavController().navigate(
-                    R.id.action_eventFragment_to_photoFragment,
+                    R.id.action_bottomNavigationFragment_to_photoFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
 
@@ -71,12 +71,12 @@ class EventFragment : Fragment() {
 
             override fun playVideo(event:Event) {
                 findNavController().navigate(
-                    R.id.action_eventFragment_to_mediaFragment,
+                    R.id.action_bottomNavigationFragment_to_mediaFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
 
             override fun playMusic(event:Event) {
-                findNavController().navigate(R.id.action_eventFragment_to_musicFragment,
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_musicFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
 
@@ -97,7 +97,7 @@ class EventFragment : Fragment() {
             if (event.id == 0) {
                 return@observe
             }
-            findNavController().navigate(R.id.action_eventFragment_to_newEventFragment,
+            findNavController().navigate(R.id.action_bottomNavigationFragment_to_newEventFragment,
                 Bundle().apply { textArg = event.content })
 
         }
@@ -128,17 +128,17 @@ class EventFragment : Fragment() {
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                     return when (menuItem.itemId) {
                         R.id.singIn -> {
-                            findNavController().navigate(R.id.action_eventFragment_to_authFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
                             true
                         }
 
                         R.id.singUp -> {
-                            findNavController().navigate(R.id.action_eventFragment_to_newUserFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_newUserFragment)
                             true
                         }
 
                         R.id.singOut -> {
-                            findNavController().navigate(R.id.action_eventFragment_to_authFragment)
+                            findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
                             true
                         }
 
@@ -168,9 +168,9 @@ class EventFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             if (authViewModel.isAuthorized) {
-                findNavController().navigate(R.id.action_eventFragment_to_newEventFragment)
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_newEventFragment)
             } else {
-                findNavController().navigate(R.id.action_eventFragment_to_authFragment)
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
             }
 
         }
