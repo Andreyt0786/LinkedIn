@@ -83,7 +83,8 @@ class AuthFragment() : Fragment() {
             }
 
             binding.complete.setOnClickListener {
-                findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+                //findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+                findNavController().navigateUp()
                 adapter.refresh()
             }
 
@@ -112,12 +113,14 @@ class AuthFragment() : Fragment() {
             binding.signOut.isVisible = true
 
             binding.No.setOnClickListener {
-                findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+                //findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+                findNavController().navigateUp()
             }
 
             binding.Yes.setOnClickListener {
                 appAuth.removeUser()
-                findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+              //  findNavController().navigate(R.id.action_authFragment_to_feedFragment)
+                findNavController().navigateUp()
                 adapter.refresh()
 
             }

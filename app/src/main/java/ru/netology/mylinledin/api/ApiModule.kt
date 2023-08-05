@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.netology.mylinledin.BuildConfig
+import ru.netology.mylinledin.api.event.ApiEventService
 import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.api.post.ApiPostService
 import ru.netology.mylinledin.api.users.ApiUsersService
@@ -76,4 +77,12 @@ class ApiModule {
     fun provideApiUsersService(
         retrofit: Retrofit
     ): ApiUsersService = retrofit.create()
+
+    @Singleton
+    @Provides
+    fun provideApiEventService(
+        retrofit: Retrofit
+    ): ApiEventService = retrofit.create()
+
+
 }

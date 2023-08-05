@@ -3,39 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/feedFragment">
+    app:startDestination="@id/bottomNavigationFragment">
 
-    <fragment
-        android:id="@+id/feedFragment"
-        android:name="ru.netology.mylinledin.activity.FeedFragment"
-        android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment_to_authFragment"
-            app:destination="@id/authFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_newUserFragment"
-            app:destination="@id/newUserFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_mediaFragment"
-            app:destination="@id/mediaFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_photoFragment"
-            app:destination="@id/photoFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_musicFragment"
-            app:destination="@id/musicFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_newPostFragment"
-            app:destination="@id/newPostFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_jobFragment"
-            app:destination="@id/jobFragment" />
-        <action
-            android:id="@+id/action_feedFragment_to_newSendPostFragment"
-            app:destination="@id/newSendPostFragment" />
-
-    </fragment>
     <fragment
         android:id="@+id/authFragment"
         android:name="ru.netology.mylinledin.activity.AuthFragment"
@@ -43,21 +12,49 @@
         tools:layout="@layout/fragment_auth" >
         <action
             android:id="@+id/action_authFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
-            app:popUpTo="@id/feedFragment"
-            app:popUpToInclusive="true"/>
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
-        android:id="@+id/newUserFragment"
-        android:name="ru.netology.mylinledin.activity.NewUserFragment"
-        android:label="fragment_new_user"
-        tools:layout="@layout/fragment_new_user" >
+        android:id="@+id/feedFragment"
+        android:name="ru.netology.mylinledin.activity.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
         <action
-            android:id="@+id/action_newUserFragment_to_feedFragment"
-            app:destination="@id/feedFragment"
-            app:popUpTo="@id/feedFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_feedFragment_to_mediaFragment"
+            app:destination="@id/mediaFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_musicFragment"
+            app:destination="@id/musicFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_newPostFragment"
+            app:destination="@id/newPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_newPostFragment2"
+            app:destination="@id/newPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_newSendPostFragment"
+            app:destination="@id/newSendPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_newUserFragment"
+            app:destination="@id/newUserFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_photoFragment"
+            app:destination="@id/photoFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_bottomNavigationFragment"
+            app:destination="@id/bottomNavigationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/jobFragment"
+        android:name="ru.netology.mylinledin.activity.JobFragment"
+        android:label="fragment_job"
+        tools:layout="@layout/fragment_job" />
     <fragment
         android:id="@+id/mediaFragment"
         android:name="ru.netology.mylinledin.activity.MediaFragment"
@@ -66,15 +63,9 @@
         <action
             android:id="@+id/action_mediaFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/photoFragment"
-        android:name="ru.netology.mylinledin.activity.PhotoFragment"
-        android:label="fragment_photo"
-        tools:layout="@layout/fragment_photo" >
         <action
-            android:id="@+id/action_photoFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
+            android:id="@+id/action_mediaFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicFragment"
@@ -84,6 +75,9 @@
         <action
             android:id="@+id/action_musicFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_musicFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPostFragment"
@@ -95,15 +89,6 @@
             app:destination="@id/feedFragment" />
     </fragment>
     <fragment
-        android:id="@+id/jobFragment"
-        android:name="ru.netology.mylinledin.activity.JobFragment"
-        android:label="fragment_job"
-        tools:layout="@layout/fragment_job" >
-        <action
-            android:id="@+id/action_jobFragment_to_feedFragment"
-            app:destination="@id/feedFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/newSendPostFragment"
         android:name="ru.netology.mylinledin.activity.NewSendPostFragment"
         android:label="fragment_new_post_send"
@@ -111,5 +96,74 @@
         <action
             android:id="@+id/action_newSendPostFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newUserFragment"
+        android:name="ru.netology.mylinledin.activity.NewUserFragment"
+        android:label="fragment_new_user"
+        tools:layout="@layout/fragment_new_user" >
+        <action
+            android:id="@+id/action_newUserFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_newUserFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="ru.netology.mylinledin.activity.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" >
+        <action
+            android:id="@+id/action_photoFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_photoFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomNavigationFragment"
+        android:name="ru.netology.mylinledin.activity.BottomNavigationFragment"
+        android:label="BottomNavigationFragment" >
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="ru.netology.mylinledin.activity.event.EventFragment"
+        android:label="EventFragment" >
+        <action
+            android:id="@+id/action_eventFragment_to_photoFragment"
+            app:destination="@id/photoFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_newUserFragment"
+            app:destination="@id/newUserFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_mediaFragment"
+            app:destination="@id/mediaFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_musicFragment"
+            app:destination="@id/musicFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_bottomNavigationFragment"
+            app:destination="@id/bottomNavigationFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_newEventFragment"
+            app:destination="@id/newEventFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newEventFragment"
+        android:name="ru.netology.mylinledin.activity.event.NewEventFragment"
+        android:label="NewEventFragment" >
+        <action
+            android:id="@+id/action_newEventFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
     </fragment>
 </navigation>

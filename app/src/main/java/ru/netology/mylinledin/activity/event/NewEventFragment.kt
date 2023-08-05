@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.activity
+package ru.netology.mylinledin.activity.event
 
 import android.app.Activity
 import android.os.Bundle
@@ -23,24 +23,23 @@ import ru.netology.mylinledin.databinding.FragmentNewPostBinding
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.util.AndroidUtils
 import ru.netology.mylinledin.util.StringArg
-import ru.netology.mylinledin.viewModel.PostViewModel
-
+import ru.netology.mylinledin.viewModel.EventViewModel
 
 @AndroidEntryPoint
-class NewPostFragment : Fragment() {
+class NewEventFragment : Fragment() {
 
     companion object {
         var Bundle.textArg: String? by StringArg
     }
+// Подвязался к созданию фрагмента поста!!!!!!
 
-
-    private val viewModel: PostViewModel by activityViewModels()
+    private val viewModel: EventViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNewPostBinding.inflate(
+        val binding = FragmentNewPostBinding.inflate(// Подвязался к созданию фрагмента поста!!!!!!
             inflater,
             container,
             false
@@ -56,7 +55,7 @@ class NewPostFragment : Fragment() {
                         val uri = data?.data!!
                         val file = uri.toFile()
 
-                        viewModel.changeMedia(MediaModel(uri, file))
+                        viewModel.changeMediaEvents(MediaModel(uri, file))
                     }
 
                     ImagePicker.RESULT_ERROR -> {
@@ -78,7 +77,6 @@ class NewPostFragment : Fragment() {
         arguments?.textArg
             ?.let(binding.edit::setText)
 
-
         binding.edit.requestFocus()
 
         activity?.addMenuProvider(object : MenuProvider {
@@ -89,8 +87,8 @@ class NewPostFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                        viewModel.changeContent(binding.edit.text.toString())
-                        viewModel.save()
+                        viewModel.changeContentEvent(binding.edit.text.toString())
+                        viewModel.saveEvents()
                         AndroidUtils.hideKeyboard(requireView())
                         true
                     }
@@ -130,11 +128,11 @@ class NewPostFragment : Fragment() {
         }
 
         binding.remove.setOnClickListener {
-            viewModel.changeMedia(null)
+            viewModel.changeMediaEvents(null)
         }
 
-        viewModel.postCreated.observe(viewLifecycleOwner) {
-            viewModel.loadPosts()
+        viewModel.eventCreated.observe(viewLifecycleOwner) {
+            viewModel.loadEvents()
             findNavController().navigateUp()
         }
         return binding.root

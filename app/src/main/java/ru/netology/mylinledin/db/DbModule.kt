@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.netology.mylinledin.dao.Post.PostDao
 import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
+import ru.netology.mylinledin.dao.Post.event.EventsDao
+import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)//база данных будет использоватьяс во всем приложении
@@ -35,4 +37,14 @@ object DbModule {
     fun providePostRemoteKeyDao(
         appDb: AppDb
     ): PostRemoteKeyDao =appDb.postRemoteKeyDao()
+
+    @Provides
+    fun provideEventsDao(
+        appDb: AppDb
+    ): EventsDao =appDb.eventDao()
+
+    @Provides
+    fun provideEventsRemoteKeyDao(
+        appDb: AppDb
+    ): EventsRemoteKeyDao =appDb.eventRemoteKeyDao()
 }

@@ -52,4 +52,11 @@
     <string name="description_full_screen">весь экран</string>
     <string name="click_me">Воспроизвести аудио</string>
     <string name="empty_jobs">Fragment Job\n</string>
+    <string name="event"> события</string>
+    <string name="author_works">Послужной список:</string>
+    <string name="author_link">Для связи с автором:</string>
+    <string name="get_new_event">Свежие записи</string>
+    <string name="empty_events">Событий нет.\nЕсли создадите новое событие, то оно появится здесь</string>
+    <string name="add_event">Добавить событие</string>
+    <string name="content_description_event"> кнопка события</string>
 </resources>
