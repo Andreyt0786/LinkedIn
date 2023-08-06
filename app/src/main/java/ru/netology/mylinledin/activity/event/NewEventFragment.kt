@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.mylinledin.R
+import ru.netology.mylinledin.databinding.FragmentNewEventBinding
 import ru.netology.mylinledin.databinding.FragmentNewPostBinding
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.util.AndroidUtils
@@ -31,7 +32,7 @@ class NewEventFragment : Fragment() {
     companion object {
         var Bundle.textArg: String? by StringArg
     }
-// Подвязался к созданию фрагмента поста!!!!!!
+
 
     private val viewModel: EventViewModel by activityViewModels()
     override fun onCreateView(
@@ -39,7 +40,7 @@ class NewEventFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNewPostBinding.inflate(// Подвязался к созданию фрагмента поста!!!!!!
+        val binding = FragmentNewEventBinding.inflate(
             inflater,
             container,
             false
@@ -75,9 +76,9 @@ class NewEventFragment : Fragment() {
 
 
         arguments?.textArg
-            ?.let(binding.edit::setText)
+            ?.let(binding.editText::setText)
 
-        binding.edit.requestFocus()
+        binding.editText.requestFocus()
 
         activity?.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -87,7 +88,9 @@ class NewEventFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                        viewModel.changeContentEvent(binding.edit.text.toString())
+                        viewModel.changeContentEvent(binding.editText.text.toString())
+                        //viewModel.changeJobEvent(binding.authorJob.text.toString())
+                        //viewModel.changeLinkEvent(binding.authorLink.text.toString())
                         viewModel.saveEvents()
                         AndroidUtils.hideKeyboard(requireView())
                         true

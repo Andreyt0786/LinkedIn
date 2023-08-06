@@ -58,5 +58,8 @@
     <string name="add_event">Add event</string>
     <string name="event"> event</string>
     <string name="content_description_event"> button event</string>
+    <string name="author_job"> enter your job</string>
+    <string name="author_content"> enter your content</string>
+    <string name="author_link_email"> enter your link</string>
 
 </resources>

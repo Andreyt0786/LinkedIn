@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.dto.event.Event
-import ru.netology.mylinledin.dto.event.Type
 import ru.netology.mylinledin.model.EventFeedModelState
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.repository.di.event.EventRepository
@@ -31,7 +30,7 @@ private val empty = Event(
     content = "",
     datetime = "",
     published = "",
-    //type = Type.OFFLINE,
+    //type = null,
     link = null,
 //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
@@ -130,6 +129,24 @@ class EventViewModel @Inject constructor(
         }
         edited.value = edited.value?.copy(content = text)
     }
+
+    fun changeJobEvent(jobAuthor: String) {
+        val text = jobAuthor.trim()
+        if (edited.value?.authorJob == text || edited.value?.authorJob =="") {
+            return
+        }
+        edited.value = edited.value?.copy(authorJob = text)
+    }
+
+    fun changeLinkEvent(linkAuthor: String) {
+        val text = linkAuthor.trim()
+        if (edited.value?.link == text || edited.value?.link =="") {
+            return
+        }
+        edited.value = edited.value?.copy(link = text)
+    }
+
+
 
     fun likeByIdEvent(event: Event) {
         viewModelScope.launch {

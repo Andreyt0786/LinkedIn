@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.mylinledin.dto.event.Attach
-
 import ru.netology.mylinledin.dto.event.Event
 
 
@@ -19,7 +18,7 @@ data class EventEntity(
     val content: String,
     val datetime: String,
     val published: String,
-    //val type: String,
+    //val type: String?,
     val link: String?,
 //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
@@ -62,7 +61,7 @@ data class EventEntity(
                 content = dto.content,
                 datetime = dto.datetime,
                 published = dto.published,
-                //type = dto.type,
+               // type = dto.type,
                 link = dto.link,
                 //  val coords: Coordinates?,
                 //val likeOwnerIds:List<Int>, узнать и добавить

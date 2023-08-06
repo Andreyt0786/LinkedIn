@@ -59,4 +59,7 @@
     <string name="empty_events">Событий нет.\nЕсли создадите новое событие, то оно появится здесь</string>
     <string name="add_event">Добавить событие</string>
     <string name="content_description_event"> кнопка события</string>
+    <string name="author_job"> Введите название предприятия</string>
+    <string name="author_content"> Контент</string>
+    <string name="author_link_email"> Введите link для связи</string>
 </resources>

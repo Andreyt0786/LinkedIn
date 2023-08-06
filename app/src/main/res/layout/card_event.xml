@@ -117,7 +117,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing"
             android:text="@string/author_works"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/linkBarrier" />
 
         <TextView
@@ -128,8 +127,6 @@
             android:lineSpacingMultiplier="1.5"
             android:paddingTop="@dimen/common_spacing"
             android:paddingBottom="@dimen/common_spacing"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linkBarrier"
             tools:text="Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по " />
@@ -140,7 +137,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing"
             android:text="@string/author_link"
-            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/content" />
 
         <TextView
@@ -151,7 +147,6 @@
             android:lineSpacingMultiplier="1.5"
             android:paddingTop="@dimen/common_spacing"
             android:paddingBottom="@dimen/common_spacing"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/content"
             tools:text="Привет, контакты для связи " />

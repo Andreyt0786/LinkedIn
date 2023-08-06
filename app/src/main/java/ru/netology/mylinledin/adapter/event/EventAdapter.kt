@@ -1,9 +1,11 @@
 package ru.netology.mylinledin.adapter.event
 
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -13,6 +15,8 @@ import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.CardEventBinding
 import ru.netology.mylinledin.dto.event.AttachmentType
 import ru.netology.mylinledin.dto.event.Event
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 interface OnInteractionListenerEvent {
@@ -46,6 +50,7 @@ class EventAdapter(
         return EventViewHolder(binding, onInteractionListener)
     }
 
+
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = getItem(position) ?: return
         holder.bind(event)
@@ -58,6 +63,7 @@ class EventViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
+
     fun bind(event: Event) {
 
         binding.apply {
@@ -67,18 +73,19 @@ class EventViewHolder(
             // в адаптере
             like.isChecked = event.likedByMe
             menu.isVisible = event.ownedByMe
-            //WEB.text = event.type.toString()
+            //WEB.text = event.type
+            authorWork.text = event.authorJob
+            authorLink.text = event.link
+            dateTime.text = event.datetime
 
-            if (!event.authorJob.isNullOrEmpty()) {
-                binding.authorWork.isVisible
-                binding.work.isVisible
-                authorWork.text = event.authorJob
+            if (event.authorJob.isNullOrEmpty()) {
+                binding.authorWork.isVisible = false
+                binding.work.isVisible = false
             }
 
-            if (!event.link.isNullOrEmpty()) {
-                binding.link.isVisible
-                binding.authorLink.isVisible
-                authorLink.text = event.link
+            if (event.link.isNullOrEmpty()) {
+                binding.link.isVisible = false
+                binding.authorLink.isVisible = false
             }
 
 
@@ -104,8 +111,6 @@ class EventViewHolder(
             }
 
             if (event.attachment?.type == AttachmentType.VIDEO) {
-
-
                 binding.video.isVisible = true
                 binding.playButtom.isVisible = true
 

@@ -39,7 +39,7 @@ interface ApiEventService {
     @DELETE("events/{id}/likes")
     suspend fun dislikeByIdEvents(@Path("id") id: Int): Response<Event>
 
-    @POST("event")
+    @POST("events")
     suspend fun saveEvents(@Body event: Event): Response<Event>
 
     @GET("events/{id}")

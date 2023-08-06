@@ -22,11 +22,11 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertEvents(events: List<EventEntity>)
 
-    @Query("UPDATE EventEntity SET content = :content WHERE id = :id")
-    suspend fun updateContentByIdEvents(id:Int, content: String)
+    @Query("UPDATE EventEntity SET content = :content, link=:link, authorJob =:authorJob WHERE id = :id")
+    suspend fun updateContentByIdEvents(id:Int, content: String, link: String?, authorJob: String?)
 
     suspend fun saveEvents(event: EventEntity) =
-        if (event.id == 0) insertEvents(event) else updateContentByIdEvents(event.id, event.content)
+        if (event.id == 0) insertEvents(event) else updateContentByIdEvents(event.id, event.content, event.link,event.authorJob)
 
     @Query(
         """
