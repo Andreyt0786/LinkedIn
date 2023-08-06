@@ -73,7 +73,7 @@ class EventViewHolder(
             // в адаптере
             like.isChecked = event.likedByMe
             menu.isVisible = event.ownedByMe
-            //WEB.text = event.type
+            WEB.text = event.type
             authorWork.text = event.authorJob
             authorLink.text = event.link
             dateTime.text = event.datetime

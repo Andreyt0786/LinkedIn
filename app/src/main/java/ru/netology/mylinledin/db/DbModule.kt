@@ -11,6 +11,7 @@ import ru.netology.mylinledin.dao.Post.PostDao
 import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
 import ru.netology.mylinledin.dao.Post.event.EventsDao
 import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
+import ru.netology.mylinledin.dao.wall.WallDao
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)//база данных будет использоватьяс во всем приложении
@@ -32,6 +33,11 @@ object DbModule {
     fun providePostDao(
         appDb: AppDb
     ): PostDao =appDb.postDao()
+
+    @Provides
+    fun providePostWallDao(
+        appDb: AppDb
+    ): WallDao =appDb.postWallDao()
 
     @Provides
     fun providePostRemoteKeyDao(

@@ -89,7 +89,7 @@ class NewEventFragment : Fragment() {
                 return when (menuItem.itemId) {
                     R.id.save -> {
                         viewModel.changeContentEvent(binding.editText.text.toString())
-                        //viewModel.changeJobEvent(binding.authorJob.text.toString())
+                        viewModel.changeDatetimeEvent(binding.authorJob.text.toString())
                         //viewModel.changeLinkEvent(binding.authorLink.text.toString())
                         viewModel.saveEvents()
                         AndroidUtils.hideKeyboard(requireView())

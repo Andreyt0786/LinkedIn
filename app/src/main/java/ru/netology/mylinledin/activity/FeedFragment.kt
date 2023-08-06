@@ -49,6 +49,11 @@ class FeedFragment : Fragment() {
 
         val adapter = PostAdapter(object : OnInteractionListener {
 
+            override fun showWall(post: Post) {
+                findNavController().navigate(R.id.action_bottomNavigationFragment_to_wallFragment,
+                    Bundle().apply { textArg = post.authorId.toString() })
+            }
+
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
             }
@@ -153,15 +158,15 @@ class FeedFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
-/*
-        binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
-            header = PostLoadingStateAdapter {
-                adapter.retry()
-            },
-            footer = PostLoadingStateAdapter {
-                adapter.retry()
-            }
-        )*/
+        /*
+                binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
+                    header = PostLoadingStateAdapter {
+                        adapter.retry()
+                    },
+                    footer = PostLoadingStateAdapter {
+                        adapter.retry()
+                    }
+                )*/
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.refreshView.isRefreshing =
@@ -175,11 +180,11 @@ class FeedFragment : Fragment() {
         }
 
         binding.fab.setOnClickListener {
-           if (authViewModel.isAuthorized) {
+            if (authViewModel.isAuthorized) {
                 findNavController().navigate(R.id.action_bottomNavigationFragment_to_newPostFragment)
-           } else {
+            } else {
                 findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
-           }
+            }
 
         }
 

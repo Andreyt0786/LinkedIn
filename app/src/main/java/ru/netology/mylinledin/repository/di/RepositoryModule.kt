@@ -8,6 +8,8 @@ import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
 import ru.netology.mylinledin.repository.di.PostRepository.PostRepositoryImpl
 import ru.netology.mylinledin.repository.di.event.EventRepository
 import ru.netology.mylinledin.repository.di.event.EventRepositoryImpl
+import ru.netology.mylinledin.repository.di.wall.WallRepository
+import ru.netology.mylinledin.repository.di.wall.WallRepositoryImpl
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)//база данных будет использоватьяс во всем приложении
@@ -23,5 +25,11 @@ interface RepositoryModule {
 
     @Binds
     fun bindsEventsRepository(impl: EventRepositoryImpl): EventRepository
+
+
+    @Singleton
+
+    @Binds
+    fun bindsWallRepository(impl: WallRepositoryImpl): WallRepository
 
 }

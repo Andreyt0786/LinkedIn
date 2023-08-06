@@ -18,14 +18,14 @@ data class EventEntity(
     val content: String,
     val datetime: String,
     val published: String,
-    //val type: String?,
+    val type: String,
     val link: String?,
 //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
 // val mentionIds:List<Int>,
     val likedByMe: Boolean,
     val participantedByMe: Boolean,
-    @Embedded
+    @Embedded("attachment_")
     val attachment: Attach?,
     val ownedByMe: Boolean,
 ) {
@@ -39,7 +39,7 @@ data class EventEntity(
         content = content,
         datetime = datetime,
         published = published,
-        //type = type,
+        type = type,
         link = link,
         //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
@@ -61,7 +61,7 @@ data class EventEntity(
                 content = dto.content,
                 datetime = dto.datetime,
                 published = dto.published,
-               // type = dto.type,
+                type = dto.type,
                 link = dto.link,
                 //  val coords: Coordinates?,
                 //val likeOwnerIds:List<Int>, узнать и добавить

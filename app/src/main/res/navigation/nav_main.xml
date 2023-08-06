@@ -179,6 +179,9 @@
         <action
             android:id="@+id/action_bottomNavigationFragment_to_newEventFragment"
             app:destination="@id/newEventFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_wallFragment"
+            app:destination="@id/wallFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -215,6 +218,14 @@
             app:destination="@id/eventFragment" />
         <action
             android:id="@+id/action_newEventFragment_to_bottomNavigationFragment"
+            app:destination="@id/bottomNavigationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/wallFragment"
+        android:name="ru.netology.mylinledin.activity.wall.WallFragment"
+        android:label="WallFragment" >
+        <action
+            android:id="@+id/action_wallFragment_to_bottomNavigationFragment"
             app:destination="@id/bottomNavigationFragment" />
     </fragment>
 </navigation>

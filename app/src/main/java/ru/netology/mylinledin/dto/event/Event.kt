@@ -11,8 +11,8 @@ data class Event(
     val content: String,
     val datetime: String,
     val published: String,
-   // val type: String?,
-    val link:String?,
+    val type: String,
+    val link: String?,
 //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
 // val mentionIds:List<Int>,
@@ -27,7 +27,7 @@ data class Attach(
     val type: AttachmentType,
 )
 
-enum class AttachmentType{
+enum class AttachmentType {
     IMAGE, VIDEO, AUDIO,
 }
 

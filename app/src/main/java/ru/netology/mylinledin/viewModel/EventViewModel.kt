@@ -30,7 +30,7 @@ private val empty = Event(
     content = "",
     datetime = "",
     published = "",
-    //type = null,
+    type = "OFFLINE",
     link = null,
 //  val coords: Coordinates?,
 //val likeOwnerIds:List<Int>, узнать и добавить
@@ -130,12 +130,12 @@ class EventViewModel @Inject constructor(
         edited.value = edited.value?.copy(content = text)
     }
 
-    fun changeJobEvent(jobAuthor: String) {
-        val text = jobAuthor.trim()
-        if (edited.value?.authorJob == text || edited.value?.authorJob =="") {
+    fun changeDatetimeEvent(datetime: String) {
+        val text = datetime.trim()
+        if (edited.value?.datetime == text || edited.value?.datetime =="") {
             return
         }
-        edited.value = edited.value?.copy(authorJob = text)
+        edited.value = edited.value?.copy(datetime = text)
     }
 
     fun changeLinkEvent(linkAuthor: String) {

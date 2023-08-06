@@ -17,6 +17,7 @@ import ru.netology.mylinledin.api.post.ApiPostService
 import ru.netology.mylinledin.api.users.ApiUsersService
 import ru.netology.mylinledin.dao.Post.PostDao
 import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
+import ru.netology.mylinledin.dao.wall.WallDao
 import ru.netology.mylinledin.db.AppDb
 import ru.netology.mylinledin.dto.posts.Attachment
 import ru.netology.mylinledin.dto.posts.AttachmentType
@@ -33,15 +34,19 @@ import javax.inject.Singleton
 @Singleton
 class PostRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
+    private  val wallDao: WallDao,
     private val apiPostService: ApiPostService,
     private val apiUsersService: ApiUsersService,
     postRemoteKeyDao: PostRemoteKeyDao,
     appDb: AppDb,
 ) : PostRepository {
 
+
+
+
     @OptIn(ExperimentalPagingApi::class)
     override val data: Flow<PagingData<Post>> = Pager(
-        config = PagingConfig(pageSize = 30, enablePlaceholders = false),
+        config = PagingConfig(pageSize = 10, enablePlaceholders = false),
         pagingSourceFactory = { postDao.getPagingSource() },
         remoteMediator = PostRemoteMediator(
             apiPostService,
@@ -53,7 +58,6 @@ class PostRepositoryImpl @Inject constructor(
         .map { pagingData ->
             pagingData.map(PostEntity::toDto)
         }
-
 
 
 //postDao.getAll().map { it.map(PostEntity::toDto) }.flowOn(Dispatchers.Default)
@@ -81,7 +85,7 @@ class PostRepositoryImpl @Inject constructor(
         val posts = apiPostService.save(
             post.copy(
                 attachment = Attachment(
-                    url = media.id,
+                    url = media.url,
                     type = AttachmentType.IMAGE
                 )
             )

@@ -12,12 +12,17 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.netology.mylinledin.dto.posts.Media
 import ru.netology.mylinledin.dto.posts.Post
-import java.io.File
 
 interface ApiPostService {
 
     @GET("posts")
     suspend fun getAll(): Response<List<Post>>
+
+    @GET("{id}/wall")
+    suspend fun getForWall(@Path("id") id: Int): Response<List<Post>>
+
+    @GET("{id}/wall/latest")
+    suspend fun getForWallLatest(): Response<List<Post>>
 
     @GET("posts/latest")
     suspend fun getLatest(@Query("count") count: Int): Response<List<Post>>
@@ -46,6 +51,8 @@ interface ApiPostService {
     @Multipart
     @POST("media")
     suspend fun upload(@Part part: MultipartBody.Part): Response<Media>
+
+
 
 
 }

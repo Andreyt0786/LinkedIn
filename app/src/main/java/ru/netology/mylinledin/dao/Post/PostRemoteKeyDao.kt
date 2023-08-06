@@ -9,10 +9,10 @@ import ru.netology.mylinledin.entity.PostRemoteKeyEntity
 @Dao
 interface PostRemoteKeyDao {
 
-    @Query("SELECT MAX('key') FROM PostRemoteKeyEntity")
+    @Query("SELECT MAX(key) FROM PostRemoteKeyEntity")
     suspend fun max():Int?
 
-    @Query("SELECT MIN('key') FROM PostRemoteKeyEntity")
+    @Query("SELECT MIN(key) FROM PostRemoteKeyEntity")
     suspend fun min():Int?
 
     @Insert(onConflict= OnConflictStrategy.REPLACE)
