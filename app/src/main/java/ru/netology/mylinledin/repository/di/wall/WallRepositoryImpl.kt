@@ -24,6 +24,8 @@ import ru.netology.mylinledin.dto.posts.AttachmentType
 import ru.netology.mylinledin.dto.posts.Media
 import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.entity.PostEntity
+import ru.netology.mylinledin.entity.WallEntity.WallEntity
+import ru.netology.mylinledin.entity.WallEntity.toWallEntity
 import ru.netology.mylinledin.entity.toEntity
 import ru.netology.mylinledin.error.ApiError
 import ru.netology.mylinledin.model.AuthModel
@@ -42,18 +44,18 @@ class WallRepositoryImpl @Inject constructor(
 ) : WallRepository {
 
     override val dataUser =
-        wallDao.getAll().map { it.map(PostEntity::toDto) }.flowOn(Dispatchers.Default)
+        wallDao.getAllWall().map { it.map(WallEntity::toDto) }.flowOn(Dispatchers.Default)
 
 
     override suspend fun getAllForWall(id: Int) {
-        wallDao.clear()
+        wallDao.clearWall()
         val posts = apiPostService.getForWall(id)
         if (!posts.isSuccessful) {
             throw ApiError(posts.code(), posts.message())
         }
         val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
         //postDao.insert(posts.body()!!.map { PostEntity.fromDto(it) })
-        wallDao.insert(body.toEntity())
+        wallDao.insertWall(body.toWallEntity())
     }
 
 }

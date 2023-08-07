@@ -6,48 +6,48 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.netology.mylinledin.entity.PostEntity
+import ru.netology.mylinledin.entity.WallEntity.WallEntity
 
 @Dao
 interface WallDao {
-    @Query("SELECT * FROM PostEntity ORDER BY id DESC")
-    fun getAll(): Flow<List<PostEntity>>
+    @Query("SELECT * FROM WallEntity ORDER BY id DESC")
+    fun getAllWall(): Flow<List<WallEntity>>
 
-    @Query("SELECT * FROM PostEntity WHERE authorId = :authorId ORDER BY id DESC")
-    fun getForWall(authorId: Int): Flow<List<PostEntity>>
+    @Query("SELECT * FROM WallEntity WHERE authorId = :authorId ORDER BY id DESC")
+    fun getForWall(authorId: Int): Flow<List<WallEntity>>
 
-    @Query("SELECT * FROM PostEntity ORDER BY id DESC")// WHERE hidden = 0 ORDER BY id DESC" убрал пока не работает обновление
-    fun getPagingSource(): PagingSource<Int, PostEntity>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(post: PostEntity)
+    @Query("SELECT * FROM WallEntity ORDER BY id DESC")// WHERE hidden = 0 ORDER BY id DESC" убрал пока не работает обновление
+    fun getPagingSource(): PagingSource<Int, WallEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(posts: List<PostEntity>)
+    suspend fun insertWall(post: WallEntity)
 
-    @Query("UPDATE PostEntity SET content = :content WHERE id = :id")
-    suspend fun updateContentById(id:Int, content: String)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertWall(posts: List<WallEntity>)
 
-    suspend fun save(post: PostEntity) =
-        if (post.id == 0) insert(post) else updateContentById(post.id, post.content)
+    @Query("UPDATE WallEntity SET content = :content WHERE id = :id")
+    suspend fun updateContentByIdWall(id:Int, content: String)
+
+    suspend fun saveWall(post: WallEntity) =
+        if (post.id == 0) insertWall(post) else updateContentByIdWall(post.id, post.content)
 
     @Query(
         """
-        UPDATE PostEntity SET
+        UPDATE WallEntity SET
         likedByMe = CASE WHEN likedByMe THEN 0 ELSE 1 END
         WHERE id = :id
         """
     )
-    suspend fun likeById(id: Int)//В реализации поменял аргумент на post
+    suspend fun likeByIdWall(id: Int)//В реализации поменял аргумент на post
 
-    @Query("DELETE FROM PostEntity WHERE id = :id")
-    suspend fun removeById(id: Int)
+    @Query("DELETE FROM WallEntity WHERE id = :id")
+    suspend fun removeByIdWall(id: Int)
 
-    @Query("DELETE FROM PostEntity")
-    suspend fun clear()
+    @Query("DELETE FROM WallEntity")
+    suspend fun clearWall()
 
-    @Query("SELECT COUNT(*) == 0 FROM PostEntity")
-    suspend fun isEmpty(): Boolean
+    @Query("SELECT COUNT(*) == 0 FROM WallEntity")
+    suspend fun isEmptyWall(): Boolean
 
 
 }

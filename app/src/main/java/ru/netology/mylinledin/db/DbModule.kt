@@ -35,9 +35,9 @@ object DbModule {
     ): PostDao =appDb.postDao()
 
     @Provides
-    fun providePostWallDao(
+    fun provideWallDao(
         appDb: AppDb
-    ): WallDao =appDb.postWallDao()
+    ): WallDao =appDb.wallDao()
 
     @Provides
     fun providePostRemoteKeyDao(
