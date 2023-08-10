@@ -74,6 +74,10 @@ class AuthFragment() : Fragment() {
                 )
             }
 
+            binding.authButtom.setOnClickListener{
+                findNavController().navigate(R.id.action_authFragment_to_newUserFragment)
+            }
+
             identicViewModel.tokenServer.observe(viewLifecycleOwner) { state ->
                 binding.authGroup.isVisible = state.complete
                 binding.newPostGroup.isVisible = state.firstView
@@ -122,7 +126,6 @@ class AuthFragment() : Fragment() {
               //  findNavController().navigate(R.id.action_authFragment_to_feedFragment)
                 findNavController().navigateUp()
                 adapter.refresh()
-
             }
         }
 

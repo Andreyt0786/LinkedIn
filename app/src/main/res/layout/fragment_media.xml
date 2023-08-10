@@ -8,17 +8,6 @@
 
 
 
-    <ImageView
-        android:id="@+id/photo_preview"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone"
-        />
     <VideoView
         android:id="@+id/video"
         android:layout_width="match_parent"
@@ -27,18 +16,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/play_buttom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/common_spacing"
-        android:contentDescription="@string/description_play_buttom"
-        app:layout_constraintStart_toStartOf="@id/video"
-        app:layout_constraintBottom_toBottomOf="@id/video"
-        app:icon="@drawable/baseline_play_arrow_24"
-        style="@style/Widget.AppTheme.IconButton"
         />
 
 

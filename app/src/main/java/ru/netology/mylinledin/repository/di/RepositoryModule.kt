@@ -8,6 +8,8 @@ import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
 import ru.netology.mylinledin.repository.di.PostRepository.PostRepositoryImpl
 import ru.netology.mylinledin.repository.di.event.EventRepository
 import ru.netology.mylinledin.repository.di.event.EventRepositoryImpl
+import ru.netology.mylinledin.repository.di.job.JobRepository
+import ru.netology.mylinledin.repository.di.job.JobRepositoryImpl
 import ru.netology.mylinledin.repository.di.wall.WallRepository
 import ru.netology.mylinledin.repository.di.wall.WallRepositoryImpl
 import javax.inject.Singleton
@@ -31,5 +33,11 @@ interface RepositoryModule {
 
     @Binds
     fun bindsWallRepository(impl: WallRepositoryImpl): WallRepository
+
+    @Singleton
+
+    @Binds
+    fun bindsJobRepository(impl: JobRepositoryImpl): JobRepository
+
 
 }

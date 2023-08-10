@@ -36,10 +36,10 @@ import javax.inject.Singleton
 @Singleton
 class WallRepositoryImpl @Inject constructor(
 
-    private  val wallDao: WallDao,
+    private val wallDao: WallDao,
     private val apiPostService: ApiPostService,
     private val apiUsersService: ApiUsersService,
-
+    private val postDao: PostDao,
     appDb: AppDb,
 ) : WallRepository {
 
@@ -57,6 +57,75 @@ class WallRepositoryImpl @Inject constructor(
         //postDao.insert(posts.body()!!.map { PostEntity.fromDto(it) })
         wallDao.insertWall(body.toWallEntity())
     }
+
+    override suspend fun saveWithAttachment(file: File, post: Post) {
+        val media = upload(file)
+        val posts = apiPostService.save(
+            post.copy(
+                attachment = Attachment(
+                    url = media.url,
+                    type = AttachmentType.IMAGE
+                )
+            )
+        )
+        if (!posts.isSuccessful) {
+            throw ApiError(posts.code(), posts.message())
+        }
+        val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
+        wallDao.insertWall(WallEntity.fromDto(body))
+
+    }
+
+    private suspend fun upload(file: File): Media {
+        return apiPostService.upload(
+            MultipartBody.Part.createFormData("file", file.name, file.asRequestBody())
+        )
+            .let { requireNotNull(it.body()) }
+    }
+
+
+    override suspend fun likeById(post: Post) {
+        if (!post.likedByMe) {
+            val posts = apiPostService.likeById(post.id)
+            if (!posts.isSuccessful) {
+                throw ApiError(posts.code(), posts.message())
+            }
+            val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
+            wallDao.insertWall(WallEntity.fromDto(body))
+            postDao.insert(PostEntity.fromDto(body))
+        } else {
+            val posts = apiPostService.dislikeById(post.id)
+            if (!posts.isSuccessful) {
+                throw ApiError(posts.code(), posts.message())
+            }
+            val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
+            wallDao.insertWall(WallEntity.fromDto(body))
+            postDao.insert(PostEntity.fromDto(body))
+        }
+    }
+
+    override suspend fun save(post: Post) {
+
+        val posts = apiPostService.save(post)
+        if (!posts.isSuccessful) {
+            throw ApiError(posts.code(), posts.message())
+        }
+        val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
+        wallDao.insertWall(WallEntity.fromDto(body))
+        postDao.insert(PostEntity.fromDto(body))
+
+    }
+
+    override suspend fun removeById(id: Int) {
+        val posts = apiPostService.removeById(id)
+        if (!posts.isSuccessful) {
+            throw ApiError(posts.code(), posts.message())
+        } else {
+            wallDao.removeByIdWall(id)
+            postDao.removeById(id)
+        }
+    }
+
 
 }
 

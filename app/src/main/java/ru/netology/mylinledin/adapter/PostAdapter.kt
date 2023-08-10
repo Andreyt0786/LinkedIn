@@ -82,12 +82,22 @@ class PostViewHolder(
             like.isChecked = post.likedByMe
             menu.isVisible = post.ownedByMe
 
-            val url = post.authorAvatar
-            Glide.with(binding.avatar)
-                .load(url)
-                .timeout(10000)
-                .circleCrop()
-                .into(binding.avatar)
+            val urlNoAva = "https://znaet.petrovich.ru/assets/image/no-avatar.png"
+            if(post.authorAvatar.isNullOrEmpty()){
+                Glide.with(binding.avatar)
+                    .load(urlNoAva)
+                    .timeout(10000)
+                    .circleCrop()
+                    .into(binding.avatar)
+
+            } else {
+                val url = post.authorAvatar
+                Glide.with(binding.avatar)
+                    .load(url)
+                    .timeout(10000)
+                    .circleCrop()
+                    .into(binding.avatar)
+            }
 
 
             if (post.attachment?.type == AttachmentType.IMAGE) {
@@ -108,7 +118,7 @@ class PostViewHolder(
 
                 binding.video.isVisible = true
                 binding.playButtom.isVisible = true
-                binding.fullScreen.isVisible = true
+
 
                 binding.playButtom.setOnClickListener {
                     binding.video.apply {
@@ -128,7 +138,6 @@ class PostViewHolder(
             } else {
                 binding.video.isVisible = false
                 binding.playButtom.isVisible = false
-                binding.fullScreen.isVisible = false
             }
 
             if (post.attachment?.type == AttachmentType.AUDIO) {

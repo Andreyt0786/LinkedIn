@@ -88,13 +88,22 @@ class EventViewHolder(
                 binding.authorLink.isVisible = false
             }
 
+            val urlNoAva = "https://znaet.petrovich.ru/assets/image/no-avatar.png"
+            if(event.authorAvatar.isNullOrEmpty()){
+                Glide.with(binding.avatar)
+                    .load(urlNoAva)
+                    .timeout(10000)
+                    .circleCrop()
+                    .into(binding.avatar)
 
-            val url = event.authorAvatar
-            Glide.with(binding.avatar)
-                .load(url)
-                .timeout(10000)
-                .circleCrop()
-                .into(binding.avatar)
+            } else {
+                val url = event.authorAvatar
+                Glide.with(binding.avatar)
+                    .load(url)
+                    .timeout(10000)
+                    .circleCrop()
+                    .into(binding.avatar)
+            }
 
 
             if (event.attachment?.type == AttachmentType.IMAGE) {

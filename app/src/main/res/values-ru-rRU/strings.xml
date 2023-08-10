@@ -54,12 +54,27 @@
     <string name="empty_jobs">Fragment Job\n</string>
     <string name="event"> события</string>
     <string name="author_works">Послужной список:</string>
-    <string name="author_link">Для связи с автором:</string>
+    <string name="author_link">Контакты для связи с автором:</string>
     <string name="get_new_event">Свежие записи</string>
     <string name="empty_events">Событий нет.\nЕсли создадите новое событие, то оно появится здесь</string>
     <string name="add_event">Добавить событие</string>
     <string name="content_description_event"> кнопка события</string>
     <string name="author_job"> Введите название предприятия</string>
-    <string name="author_content"> Контент</string>
+    <string name="author_content"> Внесите описание события</string>
     <string name="author_link_email"> Введите link для связи</string>
+    <string name="name_job"> Название предприятия:</string>
+    <string name="position_job"> Название должности:</string>
+    <string name="start_job"> Дата трудоустройства:</string>
+    <string name="end_job"> Дата увольнения:</string>
+    <string name="link_job"> Контакты предприятия:</string>
+    <string name="text_to_auth">            Если у вас нет аккаунта.\nПройдите пожалуйста регистрацию нажав на кнопку</string>
+    <string name="Registration"> Регистрация</string>
+    <string name="delete"> Удалить</string>
+    <string name="empty_user_job"> Пользователь не создал список работ</string>
+    <string name="empty_job"> Списка работ нет. \nЕсли новое место работы будет создано, то оно здесь появится </string>
+    <string name="add_job">Добавить работу</string>
+    <string name="date_time">Время проведения события:   </string>
+    <string name="Choose_date">Выберите дату</string>
+    <string name="Pick_time">Выберите время</string>
+
 </resources>

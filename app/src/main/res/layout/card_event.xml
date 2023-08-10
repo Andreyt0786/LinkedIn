@@ -47,18 +47,6 @@
             app:layout_constraintTop_toBottomOf="@id/author"
             tools:text="21 мая в 18:36" />
 
-        <TextView
-            android:id="@+id/dateTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_spacing"
-            android:layout_marginEnd="@dimen/common_spacing"
-            android:layout_marginBottom="@dimen/common_spacing"
-            app:layout_constraintBottom_toBottomOf="@id/WEB"
-            app:layout_constraintEnd_toStartOf="@id/menu"
-            app:layout_constraintStart_toEndOf="@id/avatar"
-            app:layout_constraintTop_toBottomOf="@id/published"
-            tools:text="dateTime" />
 
         <TextView
             android:id="@+id/WEB"
@@ -70,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="@id/header"
             app:layout_constraintEnd_toStartOf="@id/menu"
             app:layout_constraintStart_toEndOf="@id/avatar"
-            app:layout_constraintTop_toBottomOf="@id/dateTime"
+            app:layout_constraintTop_toBottomOf="@id/published"
             tools:text="Online" />
 
         <com.google.android.material.button.MaterialButton
@@ -89,8 +77,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="avatar,dateTime,published,WEB,menu" />
+            app:constraint_referenced_ids="avatar,published,WEB,menu" />
 
+        <TextView
+            android:id="@+id/dateTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_spacing"
+            android:text="@string/date_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header"/>
+        <TextView
+            android:id="@+id/dateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginEnd="@dimen/common_spacing"
+            android:layout_marginBottom="@dimen/common_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateTimeText"
+            tools:text="dateTime" />
         <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
@@ -101,7 +107,7 @@
             android:paddingBottom="@dimen/common_spacing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header"
+            app:layout_constraintTop_toBottomOf="@id/dateTime"
             tools:text="Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенны" />
 
         <androidx.constraintlayout.widget.Barrier
@@ -184,11 +190,11 @@
             android:layout_height="300dp"
             android:layout_marginBottom="@dimen/common_spacing"
             android:visibility="gone"
+            tools:visibility = "visible"
             app:layout_constraintTop_toBottomOf="@id/media" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play_buttom"
-            style="@style/Widget.AppTheme.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/common_spacing"
@@ -196,7 +202,8 @@
             android:visibility="gone"
             app:icon="@drawable/baseline_play_arrow_24"
             app:layout_constraintBottom_toBottomOf="@id/video"
-            app:layout_constraintStart_toStartOf="@id/video" />
+            app:layout_constraintStart_toStartOf="@id/video"
+            tools:visibility = "visible"/>
 
 
         <androidx.constraintlayout.widget.Barrier

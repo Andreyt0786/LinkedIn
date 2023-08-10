@@ -1,24 +1,17 @@
 package ru.netology.mylinledin.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import ru.netology.mylinledin.R
-import ru.netology.mylinledin.activity.MediaFragment.Companion.textArg
 import ru.netology.mylinledin.activity.event.EventFragment
-import ru.netology.mylinledin.adapter.OnInteractionListener
-import ru.netology.mylinledin.adapter.PostAdapter
+import ru.netology.mylinledin.activity.job.JobFragment
 import ru.netology.mylinledin.databinding.FragmentBottomNavigationBinding
-import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.viewModel.AuthViewModel
-import ru.netology.mylinledin.viewModel.PostViewModel
 
 class BottomNavigationFragment : Fragment() {
 
@@ -51,11 +44,6 @@ class BottomNavigationFragment : Fragment() {
                 }
 
                 R.id.job -> {
-                   /* if (authViewModel.isAuthorized) {
-                        loadFragment(JOB_TAG, ::JobFragment)
-                    } else {
-                        loadFragment(AUTH_TAG, ::AuthFragment)
-                    }*/
                     loadFragment(JOB_TAG, ::JobFragment)
                     true
                 }

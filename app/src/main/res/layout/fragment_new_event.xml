@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NewPostFragment">
+    tools:context=".activity.NewEventFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,10 +23,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="@dimen/common_spacing"
                 android:gravity="start|top"
-                android:text="@string/author_content"
-                 />
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/author_content" />
 
 
             <EditText
@@ -36,8 +35,7 @@
                 android:layout_marginBottom="32dp"
                 android:background="@android:color/transparent"
                 android:gravity="start|top"
-                android:inputType="textMultiLine"
-               />
+                android:inputType="textMultiLine" />
 
             <TextView
                 android:id="@+id/editLink"
@@ -45,8 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:paddingBottom="@dimen/common_spacing"
-                android:text="@string/author_link"
-                />
+                android:text="@string/author_link" />
 
 
             <EditText
@@ -55,27 +52,39 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="32dp"
                 android:background="@android:color/transparent"
-                android:inputType="textMultiLine"
-                />
+                android:inputType="textMultiLine" />
+
+
             <TextView
-                android:id="@+id/editJob"
+                android:id="@+id/editDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:paddingBottom="@dimen/common_spacing"
-                android:text="@string/author_job"
-                />
+                android:text="@string/Choose_date" />
 
-
-            <EditText
-                android:id="@+id/authorJob"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/pickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="32dp"
-                android:background="@android:color/transparent"
-                android:inputType="textMultiLine"
-                />
+                android:text="@string/Choose_date" />
 
+            <TextView
+                android:id="@+id/editTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/Choose_date" />
+
+            <Button
+                android:id="@+id/pickTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="@string/Choose_date" />
 
 
             <FrameLayout
@@ -115,7 +124,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:src="@drawable/baseline_add_photo_alternate_24"/>
+            android:src="@drawable/baseline_add_photo_alternate_24" />
+
         <ImageView
             android:id="@+id/take_photo"
             android:layout_width="wrap_content"

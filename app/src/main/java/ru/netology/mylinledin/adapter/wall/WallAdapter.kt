@@ -38,7 +38,7 @@ class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
 
 
 class WallAdapter(
-    private val onInteractionListener:InteractionListener,
+    private val onInteractionListener: InteractionListener,
 ) : ListAdapter<Post, WallViewHolder>(PostDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WallViewHolder {
@@ -59,13 +59,6 @@ class WallViewHolder(
 
 
     fun bind(post: Post) {
-        /*  val url = post.authorAvatar
-          Glide.with(binding.avatar)
-              .load(url)
-              .timeout(10000)
-              .circleCrop()
-              .into(binding.avatar)*/
-
 
         binding.apply {
             author.text = post.author
@@ -96,86 +89,85 @@ class WallViewHolder(
                 binding.imageHolder.isVisible = false
             }
 
-                if (post.attachment?.type == AttachmentType.VIDEO) {
-                    val urlVideo = post.attachment.url
+            if (post.attachment?.type == AttachmentType.VIDEO) {
+                val urlVideo = post.attachment.url
 
-                    binding.video.isVisible = true
-                    binding.playButtom.isVisible = true
-                    binding.fullScreen.isVisible = true
+                binding.video.isVisible = true
+                binding.playButtom.isVisible = true
 
-                    binding.playButtom.setOnClickListener {
-                        binding.video.apply {
-                            // Удален MediaController
+                binding.playButtom.setOnClickListener {
+                    binding.video.apply {
+                        // Удален MediaController
 
-                            setVideoURI(
-                                Uri.parse(post.attachment.url)
-                            )
-                            setOnPreparedListener {
-                                start()
-                            }
-                            setOnCompletionListener {
-                                stopPlayback()
-                            }
+                        setVideoURI(
+                            Uri.parse(post.attachment.url)
+                        )
+                        setOnPreparedListener {
+                            start()
+                        }
+                        setOnCompletionListener {
+                            stopPlayback()
                         }
                     }
-                } else {
-                    binding.video.isVisible = false
-                    binding.playButtom.isVisible = false
-                    binding.fullScreen.isVisible = false
                 }
+            } else {
+                binding.video.isVisible = false
+                binding.playButtom.isVisible = false
 
-                if (post.attachment?.type == AttachmentType.AUDIO) {
-                    val urlAudio =post.attachment.url
-                        binding.play.isVisible = true
-                    } else {
-                        binding.play.isVisible = false
-                    }
+            }
+
+            if (post.attachment?.type == AttachmentType.AUDIO) {
+                val urlAudio = post.attachment.url
+                binding.play.isVisible = true
+            } else {
+                binding.play.isVisible = false
+            }
 
 
 
-                menu.setOnClickListener {
-                    PopupMenu(it.context, it).apply {
-                        inflate(R.menu.options_post)
-                        setOnMenuItemClickListener { item ->
-                            when (item.itemId) {
-                                R.id.remove -> {
-                                    onInteractionListener.onRemove(post)
-                                    true
-                                }
-
-                                R.id.edit -> {
-                                    onInteractionListener.onEdit(post)
-                                    true
-                                }
-
-                                else -> false
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                onInteractionListener.onRemove(post)
+                                true
                             }
+
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
+                                true
+                            }
+
+                            else -> false
                         }
-                    }.show()
-                }
+                    }
+                }.show()
+            }
 
-                imageHolder.setOnClickListener {
-                    onInteractionListener.previewPhoto(post)
-                }
+            imageHolder.setOnClickListener {
+                onInteractionListener.previewPhoto(post)
+            }
 
-                like.setOnClickListener {
-                    onInteractionListener.onLike(post)
-                }
+            like.setOnClickListener {
+                onInteractionListener.onLike(post)
+            }
 
-                share.setOnClickListener {
-                    onInteractionListener.onShare(post)
-                }
+            share.setOnClickListener {
+                onInteractionListener.onShare(post)
+            }
 
-                video.setOnClickListener {
-                    onInteractionListener.playVideo(post)
-                }
+            video.setOnClickListener {
+                onInteractionListener.playVideo(post)
+            }
 
-                play.setOnClickListener {
-                    onInteractionListener.playMusic(post)
-                }
+            play.setOnClickListener {
+                onInteractionListener.playMusic(post)
             }
         }
     }
+}
 
 
 

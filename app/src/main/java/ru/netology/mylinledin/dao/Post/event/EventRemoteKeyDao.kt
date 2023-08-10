@@ -15,7 +15,7 @@ interface EventsRemoteKeyDao {
     @Query("SELECT MAX('key') FROM EventsRemoteKeyEntity")
     suspend fun max(): Int?
 
-    @Query("SELECT MIN(`key`) FROM EventsRemoteKeyEntity")
+    @Query("SELECT MIN('key') FROM EventsRemoteKeyEntity")
     suspend fun min(): Int?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

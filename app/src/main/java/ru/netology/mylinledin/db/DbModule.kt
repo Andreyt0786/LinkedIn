@@ -11,6 +11,7 @@ import ru.netology.mylinledin.dao.Post.PostDao
 import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
 import ru.netology.mylinledin.dao.Post.event.EventsDao
 import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
+import ru.netology.mylinledin.dao.job.JobDao
 import ru.netology.mylinledin.dao.wall.WallDao
 import javax.inject.Singleton
 
@@ -53,4 +54,9 @@ object DbModule {
     fun provideEventsRemoteKeyDao(
         appDb: AppDb
     ): EventsRemoteKeyDao =appDb.eventRemoteKeyDao()
+
+    @Provides
+    fun provideJobDao(
+        appDb: AppDb
+    ): JobDao =appDb.jobDao()
 }

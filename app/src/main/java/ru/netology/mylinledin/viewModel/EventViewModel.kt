@@ -122,31 +122,18 @@ class EventViewModel @Inject constructor(
         edited.value = event
     }
 
-    fun changeContentEvent(content: String) {
+    fun changeContentEvent(content: String, dateTime:String) {
         val text = content.trim()
-        if (edited.value?.content == text) {
-            return
-        }
-        edited.value = edited.value?.copy(content = text)
+        val date = dateTime.trim()
+        edited.value = edited.value?.copy(content = text, datetime = date)
     }
-
-    fun changeDatetimeEvent(datetime: String) {
-        val text = datetime.trim()
-        if (edited.value?.datetime == text || edited.value?.datetime =="") {
-            return
-        }
-        edited.value = edited.value?.copy(datetime = text)
-    }
-
-    fun changeLinkEvent(linkAuthor: String) {
-        val text = linkAuthor.trim()
-        if (edited.value?.link == text || edited.value?.link =="") {
+        fun changeLink(link: String) {
+        val text = link.trim()
+        if (link.isEmpty()) {
             return
         }
         edited.value = edited.value?.copy(link = text)
     }
-
-
 
     fun likeByIdEvent(event: Event) {
         viewModelScope.launch {

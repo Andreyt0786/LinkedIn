@@ -81,15 +81,15 @@ class WallViewModel @Inject constructor(
         }
     }
 
- /*   fun refreshPosts() = viewModelScope.launch {
+   fun refreshPosts(id:Int) = viewModelScope.launch {
         try {
-            _state.value = FeedModelState(refreshing = true)
-            val posts = repository.getAll()
-            _state.value = FeedModelState()
+            _state.value = WallModelState(loading = true)
+            repository.getAllForWall(id)
+            _state.value = WallModelState()
         } catch (e: Exception) {
-            _state.value = FeedModelState(error = true)
+            _state.value = WallModelState(error = true)
         }
-    }
+   }
 
     fun changeMedia(mediaModel: MediaModel?) {
         _mediaState.value = mediaModel
@@ -104,9 +104,9 @@ class WallViewModel @Inject constructor(
                     _mediaState.value?.let { mediaModel ->
                        repository.saveWithAttachment(mediaModel.file, post)
                     } ?: repository.save(post)
-                    _state.value = FeedModelState()
+                    _state.value = WallModelState()
                 } catch (e: Exception) {
-                    _state.value = FeedModelState(error = true)
+                    _state.value = WallModelState(error = true)
                 }
 
             }
@@ -138,5 +138,5 @@ class WallViewModel @Inject constructor(
             viewModelScope.launch {
                 repository.removeById(id)
             }
-        }*/
+        }
     }

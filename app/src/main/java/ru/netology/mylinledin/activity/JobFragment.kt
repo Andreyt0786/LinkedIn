@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.activity
+package ru.netology.mylinledin.activity.job
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,24 +13,28 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.activity.MediaFragment.Companion.textArg
+import ru.netology.mylinledin.activity.PhotoFragment.Companion.textArg
+import ru.netology.mylinledin.activity.wall.WallFragment.Companion.textArg
+import ru.netology.mylinledin.adapter.JobAdapter
 import ru.netology.mylinledin.adapter.OnInteractionListener
-import ru.netology.mylinledin.adapter.PostAdapter
-import ru.netology.mylinledin.adapter.PostLoadingStateAdapter
+import ru.netology.mylinledin.adapter.OnteractionListener
+import ru.netology.mylinledin.adapter.wall.InteractionListener
+import ru.netology.mylinledin.adapter.wall.WallAdapter
 import ru.netology.mylinledin.auth.AppAuth
-import ru.netology.mylinledin.databinding.FragmentFeedBinding
 import ru.netology.mylinledin.databinding.FragmentJobBinding
+import ru.netology.mylinledin.databinding.FragmentWallBinding
+import ru.netology.mylinledin.dto.Job.Job
 import ru.netology.mylinledin.dto.posts.Post
+import ru.netology.mylinledin.util.StringArg
 import ru.netology.mylinledin.viewModel.AuthViewModel
 import ru.netology.mylinledin.viewModel.IdenticViewModel
-import ru.netology.mylinledin.viewModel.PostViewModel
+import ru.netology.mylinledin.viewModel.JobViewModel
+import ru.netology.mylinledin.viewModel.WallViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,9 +43,12 @@ class JobFragment : Fragment() {
     @Inject
     lateinit var appAuth: AppAuth
 
-    private val viewModel: PostViewModel by activityViewModels()
+    private val viewModel: JobViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()
-    private val identicViewModel: IdenticViewModel by viewModels()
+
+    companion object {
+        var Bundle.textArg: String? by StringArg
+    }
 
 
     override fun onCreateView(
@@ -51,150 +58,65 @@ class JobFragment : Fragment() {
     ): View {
         val binding = FragmentJobBinding.inflate(inflater, container, false)
 
-        binding.jobText.setOnClickListener {
-            findNavController().navigateUp()
+        val adapter = JobAdapter(object : OnteractionListener {
+
+            override fun onRemove(job: Job) {
+                viewModel.removeById(job.id)
+            }
+        })
+
+
+        binding.list.adapter = adapter
+        if (arguments?.textArg.isNullOrEmpty() ||
+            appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()
+        ) {
+            viewModel.loadMyJobs()
+        } else {
+            viewModel.loadUserJobs(arguments?.textArg!!.toInt())
         }
-        /* val adapter = PostAdapter(object : OnInteractionListener {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            binding.progress.isVisible = state.loading
+            binding.refreshView.isRefreshing = state.refreshing
+            if (state.error) {
+                Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.retry_loading) {
+                        if (arguments?.textArg.isNullOrEmpty()
+                            || appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()
+                        ) {
+                            viewModel.loadMyJobs()
+                        } else {
+                            viewModel.loadUserJobs(arguments?.textArg!!.toInt())
+                        }
+                    }
+                    .show()
+            }
+        }
+        if (arguments?.textArg.isNullOrEmpty() ||
+            appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()
+        ) {
+            viewModel.dataMyJob.observe(viewLifecycleOwner)
+            { state ->
+                adapter.submitList(state.jobs) {
+                    binding.list.smoothScrollToPosition(0)
+                    binding.emptyText.isVisible = state.empty
+                }
+            }
+        } else {
+            viewModel.dataUserJob.observe(viewLifecycleOwner)
+            { state ->
+                adapter.submitList(state.jobs) {
+                    binding.list.smoothScrollToPosition(0)
+                    binding.emptyText.isVisible = state.empty
+                }
+            }
+        }
 
-             override fun onEdit(post: Post) {
-                 viewModel.edit(post)
-             }
+        binding.fab.isVisible = arguments?.textArg.isNullOrEmpty()
+                || appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()
 
-             override fun onLike(post: Post) {
-                 if (authViewModel.isAuthorized) {
-                     viewModel.likeById(post)
-                 } else {
-                     findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                 }
-             }
-
-             override fun previewPhoto(post: Post) {
-                 findNavController().navigate(R.id.action_feedFragment_to_photoFragment,
-                     Bundle().apply { textArg = post.attachment?.url })
-             }
-
-             override fun onRemove(post: Post) {
-                 viewModel.removeById(post.id)
-             }
-
-             override fun playVideo(post: Post) {
-                 findNavController().navigate(R.id.action_feedFragment_to_mediaFragment,
-                     Bundle().apply { textArg = post.attachment?.url })
-             }
-
-             override fun playMusic(post: Post) {
-                 findNavController().navigate(R.id.action_feedFragment_to_musicFragment,
-                     Bundle().apply { textArg = post.attachment?.url })
-             }
-
-             override fun onShare(post: Post) {
-                 val intent = Intent().apply {
-                     action = Intent.ACTION_SEND
-                     putExtra(Intent.EXTRA_TEXT, post.content)
-                     type = "text/plain"
-                 }
-
-                 val shareIntent =
-                     Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                 startActivity(shareIntent)
-             }
-         })
-
-
-         viewModel.state.observe(viewLifecycleOwner) { state ->
-             binding.progress.isVisible = state.loading
-             binding.refreshView.isRefreshing = state.refreshing
-             if (state.error) {
-                 Snackbar.make(binding.root, R.string.error_loading, Snackbar.LENGTH_LONG)
-                     .setAction(R.string.retry_loading) { viewModel.loadPosts() }
-                     .show()
-             }
-         }
-
-         var currentMenuProvider: MenuProvider? = null
-
-         authViewModel.authLiveData.observe(viewLifecycleOwner) { //authModel -> почему то подсвечивает
-
-             currentMenuProvider?.let(requireActivity()::removeMenuProvider)
-             requireActivity().addMenuProvider(object : MenuProvider {
-                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                     menuInflater.inflate(R.menu.auth_menu, menu)
-                     menu.setGroupVisible(R.id.authorized, authViewModel.isAuthorized)
-                     menu.setGroupVisible(R.id.unAuthorized, !authViewModel.isAuthorized)
-                 }
-
-                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                     return when (menuItem.itemId) {
-                         R.id.singIn -> {
-                             findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                             true
-                         }
-
-                         R.id.singUp -> {
-                             findNavController().navigate(R.id.action_feedFragment_to_newUserFragment)
-                             true
-                         }
-
-                         R.id.singOut -> {
-                             findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                             true
-                         }
-
-                         else -> false
-                     }
-                 }
-             }.also { currentMenuProvider = it }, viewLifecycleOwner)
-         }
-
-         lifecycleScope.launchWhenCreated {
-             viewModel.data.collectLatest {
-                 adapter.submitData(it)
-             }
-         }
-
-         binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
-             header = PostLoadingStateAdapter {
-                 adapter.retry()
-             },
-             footer = PostLoadingStateAdapter {
-                 adapter.retry()
-             }
-         )
-         lifecycleScope.launchWhenCreated {
-             adapter.loadStateFlow.collectLatest { state ->
-                 binding.refreshView.isRefreshing =
-                     state.refresh is LoadState.Loading
-             }
-         }
-
-         binding.refreshView.setOnRefreshListener {
-             adapter.refresh()
-         }
-
-         binding.bottomNavigation.setOnNavigationItemReselectedListener { item ->
-             when (item.itemId) {
-                 R.id.add_post -> {
-                     if (authViewModel.isAuthorized) {
-                         findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
-                     } else {
-                         findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                     }
-                 }
-
-                 R.id.job -> {
-                     if (authViewModel.isAuthorized) {
-                      //   findNavController().navigate(R.id.action_feedFragment_to_jobFragment)
-                     } else {
-                         findNavController().navigate(R.id.action_feedFragment_to_authFragment)
-                     }
-                 }
-             }
-         }
-
-
-
- */
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_jobFragment_to_newJobFragment)
+        }
         return binding.root
-
     }
 }
