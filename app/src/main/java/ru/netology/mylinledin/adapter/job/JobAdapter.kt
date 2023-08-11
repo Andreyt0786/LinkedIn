@@ -1,9 +1,11 @@
 package ru.netology.mylinledin.adapter
 
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,6 +15,8 @@ import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.CardJobBinding
 import ru.netology.mylinledin.dto.Job.Job
 import ru.netology.mylinledin.dto.posts.AttachmentType
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 
 interface OnteractionListener {
@@ -41,6 +45,7 @@ class JobAdapter(
         return JobViewHolder(binding, onInteractionListener)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val job = getItem(position) ?: return
         holder.bind(job)
@@ -53,21 +58,26 @@ class JobViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun bind(job: Job) {
-
+        val actual = OffsetDateTime.parse(job.start, DateTimeFormatter.ISO_DATE_TIME)
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
+        val formatDateTime = actual.format(formatter)
 
         binding.apply {
             jobName.text = job.name
             positionName.text = job.position
-            startDate.text = job.start
+            startDate.text = formatDateTime
 
             if (job.finish.isNullOrEmpty()) {
                 binding.end.isVisible = false
                 binding.endDate.isVisible = false
             } else {
+                val actualFinish = OffsetDateTime.parse(job.finish, DateTimeFormatter.ISO_DATE_TIME)
+                val formatDateTime = actualFinish.format(formatter)
                 binding.end.isVisible = true
                 binding.endDate.isVisible = true
-                endDate.text = job.finish
+                endDate.text = formatDateTime
             }
 
             if (job.link.isNullOrEmpty()) {

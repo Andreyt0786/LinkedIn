@@ -85,7 +85,7 @@ class NewEventFragment : Fragment() {
             ?.let(binding.editText::setText)
 
 
-        binding.editDate.text = SimpleDateFormat("yyyy.MM.dd").format(System.currentTimeMillis())
+        binding.editDate.text = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
 
         var cal = Calendar.getInstance()
 
@@ -130,7 +130,7 @@ class NewEventFragment : Fragment() {
             ).show()
         }
 
-        val time = binding.editDate.text.toString() + binding.editTime.text.toString()
+
 
 
 
@@ -145,10 +145,21 @@ class NewEventFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                       viewModel.changeContentEvent(binding.edit.text.toString(),time)
-                        viewModel.changeLink(binding.authorLink.text.toString())
-                        viewModel.saveEvents()
-                        AndroidUtils.hideKeyboard(requireView())
+                       if(!binding.edit.text.toString().isEmpty() ||
+                           !binding.editDate.text.toString().isEmpty()||
+                           !binding.editTime.text.toString().isEmpty()) {
+                           val time = binding.editDate.text.toString() +"T" +binding.editTime.text.toString()+"Z"
+                           viewModel.changeContentEvent(binding.edit.text.toString(), time)
+                           viewModel.changeLink(binding.authorLink.text.toString())
+                           viewModel.saveEvents()
+                           AndroidUtils.hideKeyboard(requireView())
+                       } else{
+                           Toast.makeText(
+                               requireContext(),
+                               "Необходимо заполнить поля: Событие и время события",
+                               Toast.LENGTH_SHORT
+                           )
+                       }
                         true
                     }
 

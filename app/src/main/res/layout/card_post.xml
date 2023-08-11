@@ -126,7 +126,7 @@
             app:icon="@drawable/baseline_play_arrow_24"
             android:visibility="gone"
             tools:visibility = "visible"
-            style="Widget.AppTheme.HomeCheckBox"
+            style="Widget.AppTheme.PlayButton"
             />
 
 

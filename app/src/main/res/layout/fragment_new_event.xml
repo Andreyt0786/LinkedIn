@@ -77,14 +77,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:paddingBottom="@dimen/common_spacing"
-                android:text="@string/Choose_date" />
+                android:text="@string/Pick_time" />
 
             <Button
                 android:id="@+id/pickTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
-                android:text="@string/Choose_date" />
+                android:text="@string/Pick_time" />
 
 
             <FrameLayout

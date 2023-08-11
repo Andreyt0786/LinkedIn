@@ -16,6 +16,7 @@ import ru.netology.mylinledin.databinding.CardEventBinding
 import ru.netology.mylinledin.dto.event.AttachmentType
 import ru.netology.mylinledin.dto.event.Event
 import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
 
@@ -51,6 +52,7 @@ class EventAdapter(
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = getItem(position) ?: return
         holder.bind(event)
@@ -63,12 +65,19 @@ class EventViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     fun bind(event: Event) {
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
+
+        val publishedEvent = OffsetDateTime.parse(event.published, DateTimeFormatter.ISO_DATE_TIME)
+        val formatPublished = publishedEvent.format(formatter)
+
+        val dateTimeEvent = OffsetDateTime.parse(event.datetime, DateTimeFormatter.ISO_DATE_TIME)
+        val formatDateTime = dateTimeEvent.format(formatter)
 
         binding.apply {
             author.text = event.author
-            published.text = event.published
+            published.text = formatPublished
             content.text = event.content
             // в адаптере
             like.isChecked = event.likedByMe
@@ -76,7 +85,7 @@ class EventViewHolder(
             WEB.text = event.type
             authorWork.text = event.authorJob
             authorLink.text = event.link
-            dateTime.text = event.datetime
+            dateTime.text = formatDateTime
 
             if (event.authorJob.isNullOrEmpty()) {
                 binding.authorWork.isVisible = false
@@ -89,7 +98,7 @@ class EventViewHolder(
             }
 
             val urlNoAva = "https://znaet.petrovich.ru/assets/image/no-avatar.png"
-            if(event.authorAvatar.isNullOrEmpty()){
+            if (event.authorAvatar.isNullOrEmpty()) {
                 Glide.with(binding.avatar)
                     .load(urlNoAva)
                     .timeout(10000)

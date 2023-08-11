@@ -2,10 +2,12 @@ package ru.netology.mylinledin.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.MediaController
 import android.widget.PopupMenu
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -18,6 +20,8 @@ import ru.netology.mylinledin.databinding.CardPostBinding
 import ru.netology.mylinledin.dto.posts.AttachmentType
 import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.mediaPlayer.MediaLifecycleObserver
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 
 
 interface OnInteractionListener {
@@ -53,6 +57,7 @@ class PostAdapter(
         return PostViewHolder(binding, onInteractionListener)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = getItem(position) ?: return
         holder.bind(post)
@@ -65,6 +70,7 @@ class PostViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun bind(post: Post) {
         /*  val url = post.authorAvatar
           Glide.with(binding.avatar)
@@ -73,10 +79,13 @@ class PostViewHolder(
               .circleCrop()
               .into(binding.avatar)*/
 
+        val actual = OffsetDateTime.parse(post.published, DateTimeFormatter.ISO_DATE_TIME)
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
+        val formatDateTime = actual.format(formatter)
 
         binding.apply {
             author.text = post.author
-            published.text = post.published
+            published.text = formatDateTime
             content.text = post.content
             // в адаптере
             like.isChecked = post.likedByMe

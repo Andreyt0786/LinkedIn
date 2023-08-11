@@ -66,15 +66,39 @@
                 android:text="@string/start_job"
                 />
 
-            <EditText
-                android:id="@+id/startJob"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/editDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/Choose_date" />
+
+            <Button
+                android:id="@+id/pickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="32dp"
-                android:background="@android:color/transparent"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                />
+                android:text="@string/Choose_date" />
+
+
+            <TextView
+                android:id="@+id/startJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/Pick_time" />
+
+            <Button
+                android:id="@+id/pickTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="@string/Pick_time"
+                android:layout_marginBottom="32dp"/>
+
 
             <TextView
                 android:id="@+id/editFinishJob"
@@ -85,15 +109,39 @@
                 android:text="@string/end_job"
                 />
 
+            <TextView
+                android:id="@+id/editFinishDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/Choose_date" />
 
-            <EditText
-                android:id="@+id/finishJob"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <Button
+                android:id="@+id/pickFinishDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="32dp"
-                android:background="@android:color/transparent"
-                android:inputType="textMultiLine"
-                />
+                android:text="@string/Choose_date" />
+
+
+            <TextView
+                android:id="@+id/finishTimeJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/common_spacing"
+                android:text="@string/Pick_time" />
+
+            <Button
+                android:id="@+id/pickfinishTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:text="@string/Pick_time" />
+
+
             <TextView
                 android:id="@+id/editLink"
                 android:layout_width="wrap_content"

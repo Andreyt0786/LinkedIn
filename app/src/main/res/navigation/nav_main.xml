@@ -209,6 +209,9 @@
         <action
             android:id="@+id/action_bottomNavigationFragment_to_wallFragment"
             app:destination="@id/wallFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_createJobFragment"
+            app:destination="@id/createJobFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventFragment"
@@ -291,13 +294,27 @@
         <action
             android:id="@+id/action_jobFragment_to_newJobFragment"
             app:destination="@id/newJobFragment" />
+        <action
+            android:id="@+id/action_jobFragment_to_createJobFragment"
+            app:destination="@id/createJobFragment" />
     </fragment>
     <fragment
         android:id="@+id/newJobFragment"
-        android:name="ru.netology.mylinledin.activity.job.NewJobFragment"
+        android:name="ru.netology.mylinledin.activity.event.NewJobFragment"
         android:label="NewJobFragment" >
         <action
             android:id="@+id/action_newJobFragment_to_jobFragment"
             app:destination="@id/jobFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createJobFragment"
+        android:name="ru.netology.mylinledin.activity.CreateJobFragment"
+        android:label="CreateJobFragment" >
+        <action
+            android:id="@+id/action_createJobFragment_to_jobFragment"
+            app:destination="@id/jobFragment" />
+        <action
+            android:id="@+id/action_createJobFragment_to_bottomNavigationFragment"
+            app:destination="@id/bottomNavigationFragment" />
     </fragment>
 </navigation>

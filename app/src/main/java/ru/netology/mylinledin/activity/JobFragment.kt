@@ -115,7 +115,7 @@ class JobFragment : Fragment() {
                 || appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_jobFragment_to_newJobFragment)
+            findNavController().navigate(R.id.action_bottomNavigationFragment_to_createJobFragment)
         }
         return binding.root
     }
