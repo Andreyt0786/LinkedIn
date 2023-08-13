@@ -5,6 +5,5 @@
         android:id="@+id/save"
         android:icon="@drawable/baseline_check_24"
         android:title="@string/save"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 </menu>

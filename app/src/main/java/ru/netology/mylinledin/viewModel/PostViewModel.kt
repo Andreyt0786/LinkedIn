@@ -17,7 +17,7 @@ import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.model.FeedModelState
 import ru.netology.mylinledin.model.MediaModel
-import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
+import ru.netology.mylinledin.repository.di.postRepository.PostRepository
 import ru.netology.mylinledin.util.SingleLiveEvent
 import javax.inject.Inject
 
@@ -30,10 +30,7 @@ private val empty = Post(
     authorJob = null,
     content = "",
     published = "",
-    //coords = null,
     link = null,
-   // likeOwnerIds = emptyList<Int>(),
-   // mentionIds = emptyList<Int>(),
     mentiondMe = false,
     likedByMe = false,
     attachment = null,
@@ -73,21 +70,9 @@ class PostViewModel @Inject constructor(
     }
 
 
-
     fun loadPosts() = viewModelScope.launch {
         try {
             _state.value = FeedModelState(loading = true)
-            //repository.getAll()
-            _state.value = FeedModelState()
-        } catch (e: Exception) {
-            _state.value = FeedModelState(error = true)
-        }
-    }
-
-    fun refreshPosts() = viewModelScope.launch {
-        try {
-            _state.value = FeedModelState(refreshing = true)
-            val posts = repository.getAll()
             _state.value = FeedModelState()
         } catch (e: Exception) {
             _state.value = FeedModelState(error = true)
@@ -105,7 +90,7 @@ class PostViewModel @Inject constructor(
             viewModelScope.launch {
                 try {
                     _mediaState.value?.let { mediaModel ->
-                       repository.saveWithAttachment(mediaModel.file, post)
+                        repository.saveWithAttachment(mediaModel.file, post)
                     } ?: repository.save(post)
                     _state.value = FeedModelState()
                 } catch (e: Exception) {
@@ -137,9 +122,9 @@ class PostViewModel @Inject constructor(
         }
     }
 
-        fun removeById(id: Int) {
-            viewModelScope.launch {
-                repository.removeById(id)
-            }
+    fun removeById(id: Int) {
+        viewModelScope.launch {
+            repository.removeById(id)
         }
     }
+}

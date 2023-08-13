@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.repository.di.PostRepository
+package ru.netology.mylinledin.repository.di.postRepository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -7,8 +7,8 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import retrofit2.HttpException
 import ru.netology.mylinledin.api.post.ApiPostService
-import ru.netology.mylinledin.dao.Post.PostDao
-import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
+import ru.netology.mylinledin.dao.post.PostDao
+import ru.netology.mylinledin.dao.post.PostRemoteKeyDao
 import ru.netology.mylinledin.db.AppDb
 import ru.netology.mylinledin.entity.PostEntity
 import ru.netology.mylinledin.entity.PostRemoteKeyEntity

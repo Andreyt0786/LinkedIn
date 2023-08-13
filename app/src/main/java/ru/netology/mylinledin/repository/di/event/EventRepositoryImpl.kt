@@ -11,9 +11,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.mylinledin.api.event.ApiEventService
 import ru.netology.mylinledin.api.post.ApiPostService
-import ru.netology.mylinledin.api.users.ApiUsersService
-import ru.netology.mylinledin.dao.Post.event.EventsDao
-import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
+import ru.netology.mylinledin.dao.post.event.EventsDao
+import ru.netology.mylinledin.dao.post.event.EventsRemoteKeyDao
 import ru.netology.mylinledin.db.AppDb
 import ru.netology.mylinledin.dto.event.Attach
 import ru.netology.mylinledin.dto.event.AttachmentType
@@ -30,7 +29,6 @@ import javax.inject.Singleton
 class EventRepositoryImpl @Inject constructor(
     private val eventsDao: EventsDao,
     private val apiEventsService: ApiEventService,
-    private val apiUsersService: ApiUsersService,
     eventsRemoteKeyDao: EventsRemoteKeyDao,
     appDb: AppDb,
     private val apiPostService: ApiPostService,
@@ -39,7 +37,7 @@ class EventRepositoryImpl @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override val dataEvent: Flow<PagingData<Event>> = Pager(
         config = PagingConfig(pageSize = 5, enablePlaceholders = false),
-        pagingSourceFactory = {eventsDao.getPagingSourceEvents() },
+        pagingSourceFactory = { eventsDao.getPagingSourceEvents() },
         remoteMediator = EventsRemoteMediator(
             apiEventsService,
             eventsDao,
@@ -50,11 +48,6 @@ class EventRepositoryImpl @Inject constructor(
         .map { pagingData ->
             pagingData.map(EventEntity::toDtoEvent)
         }
-
-
-
-//postDao.getAll().map { it.map(PostEntity::toDto) }.flowOn(Dispatchers.Default)
-
 
     override suspend fun saveWithAttachmentEvents(file: File, event: Event) {
         val media = upload(file)
@@ -129,7 +122,6 @@ class EventRepositoryImpl @Inject constructor(
             eventsDao.removeByIdEvents(id)
         }
     }
-
 
 
 }

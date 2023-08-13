@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.activity.event.EventFragment
-import ru.netology.mylinledin.activity.job.JobFragment
 import ru.netology.mylinledin.databinding.FragmentBottomNavigationBinding
-import ru.netology.mylinledin.viewModel.AuthViewModel
 
 class BottomNavigationFragment : Fragment() {
 
@@ -19,10 +16,8 @@ class BottomNavigationFragment : Fragment() {
         const val FEED_TAG = "FEED_TAG"
         const val JOB_TAG = "JOB_TAG"
         const val EVENT_TAG = "EVENT TAG"
-        const val AUTH_TAG = "AUTH TAG"
     }
 
-    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

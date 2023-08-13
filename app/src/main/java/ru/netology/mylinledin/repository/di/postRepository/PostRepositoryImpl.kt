@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.repository.di.PostRepository
+package ru.netology.mylinledin.repository.di.postRepository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
@@ -15,9 +15,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import ru.netology.mylinledin.api.post.ApiPostService
 import ru.netology.mylinledin.api.users.ApiUsersService
-import ru.netology.mylinledin.dao.Post.PostDao
-import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
-import ru.netology.mylinledin.dao.wall.WallDao
+import ru.netology.mylinledin.dao.post.PostDao
+import ru.netology.mylinledin.dao.post.PostRemoteKeyDao
 import ru.netology.mylinledin.db.AppDb
 import ru.netology.mylinledin.dto.posts.Attachment
 import ru.netology.mylinledin.dto.posts.AttachmentType
@@ -34,14 +33,11 @@ import javax.inject.Singleton
 @Singleton
 class PostRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
-    private  val wallDao: WallDao,
     private val apiPostService: ApiPostService,
     private val apiUsersService: ApiUsersService,
     postRemoteKeyDao: PostRemoteKeyDao,
     appDb: AppDb,
 ) : PostRepository {
-
-
 
 
     @OptIn(ExperimentalPagingApi::class)
@@ -60,8 +56,6 @@ class PostRepositoryImpl @Inject constructor(
         }
 
 
-//postDao.getAll().map { it.map(PostEntity::toDto) }.flowOn(Dispatchers.Default)
-
     override suspend fun getToken(login: String?, password: String?): AuthModel {
         val response = apiUsersService.updateUser(login, password)
 
@@ -71,7 +65,7 @@ class PostRepositoryImpl @Inject constructor(
         return response.body() ?: throw ApiError(response.code(), response.message())
     }
 
-    override suspend fun newUser(login: String, password: String, name : String): AuthModel {
+    override suspend fun newUser(login: String, password: String, name: String): AuthModel {
         val response = apiUsersService.registerUser(login, password, name)
 
         if (!response.isSuccessful) {
@@ -80,7 +74,7 @@ class PostRepositoryImpl @Inject constructor(
         return response.body() ?: throw ApiError(response.code(), response.message())
     }
 
-    override suspend fun saveWithAttachment(file: File,post :Post) {
+    override suspend fun saveWithAttachment(file: File, post: Post) {
         val media = upload(file)
         val posts = apiPostService.save(
             post.copy(
@@ -112,7 +106,6 @@ class PostRepositoryImpl @Inject constructor(
             throw ApiError(posts.code(), posts.message())
         }
         val body = posts.body() ?: throw ApiError(posts.code(), posts.message())
-        //postDao.insert(posts.body()!!.map { PostEntity.fromDto(it) })
         postDao.insert(body.toEntity())
     }
 
@@ -165,7 +158,7 @@ class PostRepositoryImpl @Inject constructor(
             throw ApiError(posts.code(), posts.message())
         } else {
             postDao.removeById(id)
-                    }
+        }
     }
 
 }

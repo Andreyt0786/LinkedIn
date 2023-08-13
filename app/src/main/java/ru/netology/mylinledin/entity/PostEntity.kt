@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.mylinledin.dto.posts.Attachment
-import ru.netology.mylinledin.dto.posts.Coordinates
 import ru.netology.mylinledin.dto.posts.Post
 
 @Entity
@@ -17,11 +16,7 @@ data class PostEntity(
     val authorJob: String?,
     val content: String,
     val published: String,
-    //@Embedded
-   // val coords: Coordinates?,
     val link: String?,
-    //val likeOwnerIds: List<Int>,
-   // val mentionIds: List<Int>,
     val mentiondMe: Boolean,
     val likedByMe: Boolean,
     @Embedded
@@ -37,18 +32,15 @@ data class PostEntity(
         authorJob = authorJob,
         content = content,
         published = published,
-       // coords = coords,
         link = link,
-      //  likeOwnerIds = likeOwnerIds,
-       // mentionIds = mentionIds,
         mentiondMe = mentiondMe,
         likedByMe = likedByMe,
         attachment = attachment,
         ownedByMe = ownedByMe
     )
 
-    companion object{
-        fun fromDto(dto:Post) =
+    companion object {
+        fun fromDto(dto: Post) =
             PostEntity(
                 id = dto.id,
                 authorId = dto.authorId,
@@ -57,10 +49,7 @@ data class PostEntity(
                 authorJob = dto.authorJob,
                 content = dto.content,
                 published = dto.published,
-                //coords = dto.coords,
                 link = dto.link,
-               // likeOwnerIds = dto.likeOwnerIds,
-               // mentionIds = dto.mentionIds,
                 mentiondMe = dto.mentiondMe,
                 likedByMe = dto.likedByMe,
                 attachment = dto.attachment,

@@ -5,6 +5,5 @@
         android:id="@+id/work"
         android:icon="@drawable/baseline_business_center_24"
         android:title="@string/delete"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="ifRoom" />
 </menu>

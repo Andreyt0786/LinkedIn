@@ -10,7 +10,7 @@ import ru.netology.mylinledin.error.ApiError
 import ru.netology.mylinledin.model.AuthModel
 import ru.netology.mylinledin.model.AuthModelState
 import ru.netology.mylinledin.model.RegisterModelState
-import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
+import ru.netology.mylinledin.repository.di.postRepository.PostRepository
 import ru.netology.mylinledin.util.SingleLiveEvent
 import javax.inject.Inject
 

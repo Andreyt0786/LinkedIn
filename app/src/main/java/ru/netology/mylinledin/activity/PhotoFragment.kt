@@ -1,6 +1,5 @@
 package ru.netology.mylinledin.activity
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,13 +7,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import ru.netology.mylinledin.R
-import ru.netology.mylinledin.databinding.FragmentMediaBinding
 import ru.netology.mylinledin.databinding.FragmentPhotoBinding
 import ru.netology.mylinledin.util.StringArg
 

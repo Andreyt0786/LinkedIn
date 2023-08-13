@@ -32,9 +32,6 @@ private val empty = Event(
     published = "",
     type = "OFFLINE",
     link = null,
-//  val coords: Coordinates?,
-//val likeOwnerIds:List<Int>, узнать и добавить
-// val mentionIds:List<Int>,
     likedByMe = false,
     participantedByMe = false,
     attachment = null,
@@ -77,22 +74,12 @@ class EventViewModel @Inject constructor(
     fun loadEvents() = viewModelScope.launch {
         try {
             _state.value = EventFeedModelState(loading = true)
-            //repository.getAll()
             _state.value = EventFeedModelState()
         } catch (e: Exception) {
             _state.value = EventFeedModelState(error = true)
         }
     }
 
-    /*fun refreshPosts() = viewModelScope.launch {
-        try {
-            _state.value = FeedModelState(refreshing = true)
-            val posts = repository.getAll()
-            _state.value = FeedModelState()
-        } catch (e: Exception) {
-            _state.value = FeedModelState(error = true)
-        }
-    }*/
 
     fun changeMediaEvents(mediaModel: MediaModel?) {
         _mediaState.value = mediaModel
@@ -122,12 +109,13 @@ class EventViewModel @Inject constructor(
         edited.value = event
     }
 
-    fun changeContentEvent(content: String, dateTime:String) {
+    fun changeContentEvent(content: String, dateTime: String) {
         val text = content.trim()
         val date = dateTime.trim()
         edited.value = edited.value?.copy(content = text, datetime = date)
     }
-        fun changeLink(link: String) {
+
+    fun changeLink(link: String) {
         val text = link.trim()
         if (link.isEmpty()) {
             return

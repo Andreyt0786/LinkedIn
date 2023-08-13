@@ -11,11 +11,9 @@ import android.view.ViewGroup
 import android.widget.MediaController
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.mylinledin.R
-import ru.netology.mylinledin.activity.PhotoFragment.Companion.textArg
 import ru.netology.mylinledin.databinding.FragmentMediaBinding
 import ru.netology.mylinledin.util.StringArg
 
@@ -59,20 +57,20 @@ class MediaFragment : Fragment() {
         }, viewLifecycleOwner)
 
 
-      binding.video.setOnClickListener {
-          binding.video.apply {
-              setMediaController(MediaController(context))
-              setVideoURI(
-                  Uri.parse(arguments?.textArg)
-              )
-              setOnPreparedListener {
-                  start()
-              }
-              setOnCompletionListener {
-                  stopPlayback()
-              }
-          }
-      }
+        binding.video.setOnClickListener {
+            binding.video.apply {
+                setMediaController(MediaController(context))
+                setVideoURI(
+                    Uri.parse(arguments?.textArg)
+                )
+                setOnPreparedListener {
+                    start()
+                }
+                setOnCompletionListener {
+                    stopPlayback()
+                }
+            }
+        }
         return binding.root
     }
 }

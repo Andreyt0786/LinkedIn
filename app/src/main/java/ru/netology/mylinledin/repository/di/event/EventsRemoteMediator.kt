@@ -7,8 +7,8 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import retrofit2.HttpException
 import ru.netology.mylinledin.api.event.ApiEventService
-import ru.netology.mylinledin.dao.Post.event.EventsDao
-import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
+import ru.netology.mylinledin.dao.post.event.EventsDao
+import ru.netology.mylinledin.dao.post.event.EventsRemoteKeyDao
 import ru.netology.mylinledin.db.AppDb
 import ru.netology.mylinledin.entity.event.EventEntity
 import ru.netology.mylinledin.entity.event.EventsRemoteKeyEntity
@@ -33,7 +33,8 @@ class EventsRemoteMediator(
             val result = when (loadType) {
                 LoadType.REFRESH -> eventsRemoteKeyDao.max()?.let {
                     apiService.getAfterEvents(it, state.config.pageSize)
-                } ?: apiService.getLatestEvents(state.config.initialLoadSize)// поменял на initialLoadSize
+                }
+                    ?: apiService.getLatestEvents(state.config.initialLoadSize)
 
 
                 LoadType.PREPEND -> {

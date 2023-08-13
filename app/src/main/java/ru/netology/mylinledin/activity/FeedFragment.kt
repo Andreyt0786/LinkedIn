@@ -13,24 +13,23 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.activity.MediaFragment.Companion.textArg
 import ru.netology.mylinledin.adapter.OnInteractionListener
 import ru.netology.mylinledin.adapter.PostAdapter
-import ru.netology.mylinledin.adapter.PostLoadingStateAdapter
-import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.databinding.FragmentFeedBinding
 import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.viewModel.AuthViewModel
-import ru.netology.mylinledin.viewModel.IdenticViewModel
 import ru.netology.mylinledin.viewModel.PostViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class FeedFragment : Fragment() {
@@ -120,7 +119,7 @@ class FeedFragment : Fragment() {
 
         var currentMenuProvider: MenuProvider? = null
 
-        authViewModel.authLiveData.observe(viewLifecycleOwner) { //authModel -> почему то подсвечивает
+        authViewModel.authLiveData.observe(viewLifecycleOwner) {
 
             currentMenuProvider?.let(requireActivity()::removeMenuProvider)
             requireActivity().addMenuProvider(object : MenuProvider {
@@ -153,25 +152,23 @@ class FeedFragment : Fragment() {
             }.also { currentMenuProvider = it }, viewLifecycleOwner)
         }
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.data.collectLatest {
-                adapter.submitData(it)
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.data.collectLatest {
+                    adapter.submitData(it)
+                }
             }
         }
-        /*
-                binding.list.adapter = adapter.withLoadStateHeaderAndFooter(
-                    header = PostLoadingStateAdapter {
-                        adapter.retry()
-                    },
-                    footer = PostLoadingStateAdapter {
-                        adapter.retry()
-                    }
-                )*/
-        lifecycleScope.launchWhenCreated {
-            adapter.loadStateFlow.collectLatest { state ->
-                binding.refreshView.isRefreshing =
-                    state.refresh is LoadState.Loading ||
-                            state.append is LoadState.Loading
+
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.loadStateFlow.collectLatest { state ->
+                    binding.refreshView.isRefreshing =
+                        state.refresh is LoadState.Loading ||
+                                state.append is LoadState.Loading
+                }
             }
         }
 

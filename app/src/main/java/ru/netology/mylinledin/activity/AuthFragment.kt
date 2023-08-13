@@ -1,13 +1,11 @@
 package ru.netology.mylinledin.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +17,6 @@ import ru.netology.mylinledin.databinding.FragmentAuthBinding
 import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.viewModel.AuthViewModel
 import ru.netology.mylinledin.viewModel.IdenticViewModel
-import ru.netology.mylinledin.viewModel.PostViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,7 +25,6 @@ class AuthFragment() : Fragment() {
     @Inject
     lateinit var appAuth: AppAuth
     private val identicViewModel: IdenticViewModel by viewModels()
-    private val viewModel: PostViewModel by activityViewModels()
     private val authViewModel: AuthViewModel by viewModels()
 
 
@@ -63,7 +59,7 @@ class AuthFragment() : Fragment() {
 
             override fun onShare(post: Post) {
 
-                }
+            }
         })
 
         if (!authViewModel.isAuthorized) {
@@ -74,7 +70,7 @@ class AuthFragment() : Fragment() {
                 )
             }
 
-            binding.authButtom.setOnClickListener{
+            binding.authButtom.setOnClickListener {
                 findNavController().navigate(R.id.action_authFragment_to_newUserFragment)
             }
 
@@ -87,7 +83,6 @@ class AuthFragment() : Fragment() {
             }
 
             binding.complete.setOnClickListener {
-                //findNavController().navigate(R.id.action_authFragment_to_feedFragment)
                 findNavController().navigateUp()
                 adapter.refresh()
             }
@@ -117,13 +112,11 @@ class AuthFragment() : Fragment() {
             binding.signOut.isVisible = true
 
             binding.No.setOnClickListener {
-                //findNavController().navigate(R.id.action_authFragment_to_feedFragment)
                 findNavController().navigateUp()
             }
 
             binding.Yes.setOnClickListener {
                 appAuth.removeUser()
-              //  findNavController().navigate(R.id.action_authFragment_to_feedFragment)
                 findNavController().navigateUp()
                 adapter.refresh()
             }

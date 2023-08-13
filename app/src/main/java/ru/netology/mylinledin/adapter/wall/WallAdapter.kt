@@ -74,7 +74,6 @@ class WallViewHolder(
             author.text = post.author
             published.text = formatDateTime
             content.text = post.content
-            // в адаптере
             like.isChecked = post.likedByMe
             menu.isVisible = post.ownedByMe
 
@@ -100,7 +99,6 @@ class WallViewHolder(
             }
 
             if (post.attachment?.type == AttachmentType.VIDEO) {
-                val urlVideo = post.attachment.url
 
                 binding.video.isVisible = true
                 binding.playButtom.isVisible = true
@@ -126,12 +124,7 @@ class WallViewHolder(
 
             }
 
-            if (post.attachment?.type == AttachmentType.AUDIO) {
-                val urlAudio = post.attachment.url
-                binding.play.isVisible = true
-            } else {
-                binding.play.isVisible = false
-            }
+            binding.play.isVisible = post.attachment?.type == AttachmentType.AUDIO
 
 
 

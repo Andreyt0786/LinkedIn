@@ -89,12 +89,16 @@ class NewPostFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                        if(!binding.edit.text.toString().isNullOrEmpty()) {
+                        if(binding.edit.text.toString().isNotEmpty()) {
                             viewModel.changeContent(binding.edit.text.toString())
                             viewModel.save()
                             AndroidUtils.hideKeyboard(requireView())
                         } else{
-                            Toast.makeText(requireContext(), "Необходимо напечатать контент", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.New_Wall_Error,
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                         true

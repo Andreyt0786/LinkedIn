@@ -1,14 +1,9 @@
-package ru.netology.mylinledin.activity.job
+package ru.netology.mylinledin.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -17,24 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.mylinledin.R
-import ru.netology.mylinledin.activity.MediaFragment.Companion.textArg
-import ru.netology.mylinledin.activity.PhotoFragment.Companion.textArg
-import ru.netology.mylinledin.activity.wall.WallFragment.Companion.textArg
-import ru.netology.mylinledin.adapter.JobAdapter
-import ru.netology.mylinledin.adapter.OnInteractionListener
-import ru.netology.mylinledin.adapter.OnteractionListener
-import ru.netology.mylinledin.adapter.wall.InteractionListener
-import ru.netology.mylinledin.adapter.wall.WallAdapter
+import ru.netology.mylinledin.adapter.job.JobAdapter
+import ru.netology.mylinledin.adapter.job.OnteractionListener
 import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.databinding.FragmentJobBinding
-import ru.netology.mylinledin.databinding.FragmentWallBinding
 import ru.netology.mylinledin.dto.Job.Job
-import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.util.StringArg
 import ru.netology.mylinledin.viewModel.AuthViewModel
-import ru.netology.mylinledin.viewModel.IdenticViewModel
 import ru.netology.mylinledin.viewModel.JobViewModel
-import ru.netology.mylinledin.viewModel.WallViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -65,6 +50,12 @@ class JobFragment : Fragment() {
             }
         })
 
+        if ((arguments?.textArg.isNullOrEmpty() ||
+                    appAuth.authStateFlow.value.id == arguments?.textArg!!.toInt()) &&
+            !authViewModel.isAuthorized
+        ) {
+            findNavController().navigate(R.id.action_bottomNavigationFragment_to_authFragment)
+        }
 
         binding.list.adapter = adapter
         if (arguments?.textArg.isNullOrEmpty() ||

@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.repository.di.PostRepository
+package ru.netology.mylinledin.repository.di.postRepository
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
@@ -13,10 +13,10 @@ interface PostRepository {
     suspend fun likeById(post: Post)
     suspend fun save(post: Post)
     suspend fun removeById(id: Int)
-    fun getNewer(id:Long): Flow<Int>
+    fun getNewer(id: Long): Flow<Int>
     suspend fun saveWithAttachment(file: File, post: Post)
-    suspend fun getToken(login:String?, password:String?): AuthModel
-    suspend fun newUser (login:String, password:String, name: String): AuthModel
+    suspend fun getToken(login: String?, password: String?): AuthModel
+    suspend fun newUser(login: String, password: String, name: String): AuthModel
 
 
 }

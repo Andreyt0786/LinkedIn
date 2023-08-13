@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,9 +18,7 @@
             android:contentDescription="@string/description_post_author_avatar"
             app:layout_constraintBottom_toBottomOf="@id/header"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -55,15 +51,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/menu"
+            style="@style/Widget.AppTheme.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing"
             android:contentDescription="@string/description_post_menu"
             app:icon="@drawable/baseline_more_vert_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            style="@style/Widget.AppTheme.IconButton"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/header"
@@ -89,49 +84,44 @@
             android:id="@+id/image_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/loaded_photo"
             android:layout_marginBottom="@dimen/common_spacing"
-            app:layout_constraintTop_toBottomOf="@id/content"
+            android:contentDescription="@string/loaded_photo"
             android:visibility="gone"
-             />
+            app:layout_constraintTop_toBottomOf="@id/content" />
 
         <Button
             android:id="@+id/play"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content"
             android:text="@string/click_me"
             android:visibility="gone"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content" />
 
         <VideoView
             android:id="@+id/video"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/common_spacing"
-            app:layout_constraintTop_toBottomOf="@id/content"
             android:layout_height="300dp"
+            android:layout_marginBottom="@dimen/common_spacing"
             android:visibility="gone"
-            tools:visibility = "visible"
-            />
+            app:layout_constraintTop_toBottomOf="@id/content"
+            tools:visibility="visible" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/play_buttom"
+            style="Widget.AppTheme.PlayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/description_play_buttom"
-            app:layout_constraintStart_toStartOf="@id/video"
-            app:layout_constraintBottom_toBottomOf="@id/video"
-            app:icon="@drawable/baseline_play_arrow_24"
             android:visibility="gone"
-            tools:visibility = "visible"
-            style="Widget.AppTheme.PlayButton"
-            />
+            app:icon="@drawable/baseline_play_arrow_24"
+            app:layout_constraintBottom_toBottomOf="@id/video"
+            app:layout_constraintStart_toStartOf="@id/video"
+            tools:visibility="visible" />
 
 
-
-    <androidx.constraintlayout.widget.Barrier
+        <androidx.constraintlayout.widget.Barrier
             android:id="@+id/footer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,28 +130,26 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/like"
+            style="@style/Widget.AppTheme.LikeCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
             android:contentDescription="@string/description_post_like"
+            app:icon="@drawable/ic_like"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/footer"
-            app:icon="@drawable/ic_like"
             tools:checked="@sample/posts.json/data/likedByMe"
-            tools:text="likes"
-            style="@style/Widget.AppTheme.LikeCheckBox"
-            />
+            tools:text="likes" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/share"
+            style="@style/Widget.AppTheme.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/common_spacing"
             android:contentDescription="@string/description_post_share"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/footer"
             app:icon="@drawable/baseline_share_24"
-            style="@style/Widget.AppTheme.IconButton"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/footer" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

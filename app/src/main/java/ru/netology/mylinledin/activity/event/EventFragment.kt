@@ -2,7 +2,6 @@ package ru.netology.mylinledin.activity.event
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -14,12 +13,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.activity.PhotoFragment.Companion.textArg
 import ru.netology.mylinledin.adapter.event.EventAdapter
@@ -50,32 +52,33 @@ class EventFragment : Fragment() {
                 viewModel.editEvent(event)
             }
 
-            override fun onLike(event:Event) {
+            override fun onLike(event: Event) {
                 if (authViewModel.isAuthorized) {
                     viewModel.likeByIdEvent(event)
                 } else {
                     findNavController().navigate(
-                        R.id.action_bottomNavigationFragment_to_authFragment)
+                        R.id.action_bottomNavigationFragment_to_authFragment
+                    )
                 }
             }
 
-            override fun previewPhoto(event:Event) {
+            override fun previewPhoto(event: Event) {
                 findNavController().navigate(
                     R.id.action_bottomNavigationFragment_to_photoFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
 
-            override fun onRemove(event:Event) {
+            override fun onRemove(event: Event) {
                 viewModel.removeByIdEvent(event.id)
             }
 
-            override fun playVideo(event:Event) {
+            override fun playVideo(event: Event) {
                 findNavController().navigate(
                     R.id.action_bottomNavigationFragment_to_mediaFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
 
-            override fun playMusic(event:Event) {
+            override fun playMusic(event: Event) {
                 findNavController().navigate(R.id.action_bottomNavigationFragment_to_musicFragment,
                     Bundle().apply { textArg = event.attachment?.url })
             }
@@ -115,7 +118,7 @@ class EventFragment : Fragment() {
 
         var currentMenuProvider: MenuProvider? = null
 
-        authViewModel.authLiveData.observe(viewLifecycleOwner) { //authModel -> почему то подсвечивает
+        authViewModel.authLiveData.observe(viewLifecycleOwner) {
 
             currentMenuProvider?.let(requireActivity()::removeMenuProvider)
             requireActivity().addMenuProvider(object : MenuProvider {
@@ -148,17 +151,21 @@ class EventFragment : Fragment() {
             }.also { currentMenuProvider = it }, viewLifecycleOwner)
         }
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.data.collectLatest {
-                adapter.submitData(it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.data.collectLatest {
+                    adapter.submitData(it)
+                }
             }
         }
 
-        lifecycleScope.launchWhenCreated {
-            adapter.loadStateFlow.collectLatest { state ->
-                binding.refreshView.isRefreshing =
-                    state.refresh is LoadState.Loading ||
-                            state.append is LoadState.Loading
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                adapter.loadStateFlow.collectLatest { state ->
+                    binding.refreshView.isRefreshing =
+                        state.refresh is LoadState.Loading ||
+                                state.append is LoadState.Loading
+                }
             }
         }
 
