@@ -1,5 +1,6 @@
 package ru.netology.mylinledin.activity.event
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -10,7 +11,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
@@ -23,7 +23,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.FragmentNewEventBinding
-import ru.netology.mylinledin.databinding.FragmentNewPostBinding
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.util.AndroidUtils
 import ru.netology.mylinledin.util.StringArg
@@ -41,6 +40,8 @@ class NewEventFragment : Fragment() {
 
 
     private val viewModel: EventViewModel by activityViewModels()
+
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,45 +88,44 @@ class NewEventFragment : Fragment() {
 
         binding.editDate.text = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
 
-        var cal = Calendar.getInstance()
-
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val myFormat = "yyyy-MM-dd" // mention the format you need
-                val sdf = SimpleDateFormat(myFormat, Locale.US).toString()
-                binding.editDate.text = sdf.format(cal.time)
-
-            }
-
-
         binding.pickDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, monthOfYear)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    val myFormat = "yyyy-MM-dd" // mention the format you need
+                    val sdf = SimpleDateFormat(myFormat, Locale.US).toString()
+                    binding.editDate.text = sdf.format(calendar.time)
+
+                }
+
             DatePickerDialog(
                 requireContext(), dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
 
         binding.editTime.text = SimpleDateFormat("HH:mm:ss").format(System.currentTimeMillis())
         binding.pickTime.setOnClickListener {
-            val cal = Calendar.getInstance()
-            val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
-                cal.set(Calendar.HOUR_OF_DAY, hour)
-                cal.set(Calendar.MINUTE, minute)
+            val calendar = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hour, minute ->
+                calendar.set(Calendar.HOUR_OF_DAY, hour)
+                calendar.set(Calendar.MINUTE, minute)
 
                 val myFormat = "HH:mm:ss"
-                binding.editTime.text = SimpleDateFormat(myFormat).format(cal.time).toString()
+                binding.editTime.text = SimpleDateFormat(myFormat).format(calendar.time).toString()
             }
             TimePickerDialog(
                 requireContext(),
                 timeSetListener,
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
                 true
             ).show()
         }
@@ -145,21 +145,20 @@ class NewEventFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                       if(!binding.edit.text.toString().isEmpty() ||
-                           !binding.editDate.text.toString().isEmpty()||
-                           !binding.editTime.text.toString().isEmpty()) {
-                           val time = binding.editDate.text.toString() +"T" +binding.editTime.text.toString()+"Z"
-                           viewModel.changeContentEvent(binding.edit.text.toString(), time)
-                           viewModel.changeLink(binding.authorLink.text.toString())
-                           viewModel.saveEvents()
-                           AndroidUtils.hideKeyboard(requireView())
-                       } else{
-                           Toast.makeText(
-                               requireContext(),
-                               "Необходимо заполнить поля: Событие и время события",
-                               Toast.LENGTH_SHORT
-                           )
-                       }
+                        if (binding.edit.text.toString().isNotEmpty()) {
+                            val time =
+                                binding.editDate.text.toString() + "T" + binding.editTime.text.toString() + "Z"
+                            viewModel.changeContentEvent(binding.edit.text.toString(), time)
+                            viewModel.changeLink(binding.authorLink.text.toString())
+                            viewModel.saveEvents()
+                            AndroidUtils.hideKeyboard(requireView())
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.New_Event_Error,
+                                Toast.LENGTH_SHORT
+                            )
+                        }
                         true
                     }
 

@@ -15,7 +15,6 @@ import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.CardEventBinding
 import ru.netology.mylinledin.dto.event.AttachmentType
 import ru.netology.mylinledin.dto.event.Event
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -79,7 +78,6 @@ class EventViewHolder(
             author.text = event.author
             published.text = formatPublished
             content.text = event.content
-            // в адаптере
             like.isChecked = event.likedByMe
             menu.isVisible = event.ownedByMe
             WEB.text = event.type
@@ -134,8 +132,6 @@ class EventViewHolder(
 
                 binding.playButtom.setOnClickListener {
                     binding.video.apply {
-                        // Удален MediaController
-
                         setVideoURI(
                             Uri.parse(event.attachment.url)
                         )

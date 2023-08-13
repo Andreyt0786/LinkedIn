@@ -1,7 +1,6 @@
 package ru.netology.mylinledin.api
 
 
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +13,9 @@ import retrofit2.create
 import ru.netology.mylinledin.BuildConfig
 import ru.netology.mylinledin.api.event.ApiEventService
 import ru.netology.mylinledin.api.job.ApiJobService
-import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.api.post.ApiPostService
 import ru.netology.mylinledin.api.users.ApiUsersService
+import ru.netology.mylinledin.auth.AppAuth
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)//база данных будет использоватьяс во всем приложении
@@ -71,7 +70,7 @@ class ApiModule {
     @Provides
     fun provideApiPostService(
         retrofit: Retrofit
-    ):ApiPostService= retrofit.create()
+    ): ApiPostService = retrofit.create()
 
     @Singleton
     @Provides

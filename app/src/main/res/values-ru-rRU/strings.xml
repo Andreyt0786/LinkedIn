@@ -76,5 +76,7 @@
     <string name="date_time">Время проведения события:   </string>
     <string name="Choose_date">Выберите дату</string>
     <string name="Pick_time">Выберите время</string>
-
+    <string name="New_Event_Error">Необходимо заполнить поля: Событие и время события</string>
+    <string name="New_Job_error">Необходимо заполнить поля название работы, позицию и начало работы</string>
+    <string name="New_Wall_Error">Необходимо заполнить поле: Контент </string>
 </resources>

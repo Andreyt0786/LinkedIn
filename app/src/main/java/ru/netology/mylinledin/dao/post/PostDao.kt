@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.dao.Post
+package ru.netology.mylinledin.dao.post
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
@@ -13,7 +13,7 @@ interface PostDao {
     @Query("SELECT * FROM PostEntity ORDER BY id DESC")
     fun getAll(): Flow<List<PostEntity>>
 
-    @Query("SELECT * FROM PostEntity ORDER BY id DESC")// WHERE hidden = 0 ORDER BY id DESC" убрал пока не работает обновление
+    @Query("SELECT * FROM PostEntity ORDER BY id DESC")
     fun getPagingSource(): PagingSource<Int, PostEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -23,7 +23,7 @@ interface PostDao {
     suspend fun insert(posts: List<PostEntity>)
 
     @Query("UPDATE PostEntity SET content = :content WHERE id = :id")
-    suspend fun updateContentById(id:Int, content: String)
+    suspend fun updateContentById(id: Int, content: String)
 
     suspend fun save(post: PostEntity) =
         if (post.id == 0) insert(post) else updateContentById(post.id, post.content)
@@ -35,7 +35,7 @@ interface PostDao {
         WHERE id = :id
         """
     )
-    suspend fun likeById(id: Int)//В реализации поменял аргумент на post
+    suspend fun likeById(id: Int)
 
     @Query("DELETE FROM PostEntity WHERE id = :id")
     suspend fun removeById(id: Int)

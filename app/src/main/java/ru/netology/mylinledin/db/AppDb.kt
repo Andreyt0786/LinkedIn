@@ -2,15 +2,15 @@ package ru.netology.mylinledin.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.netology.mylinledin.dao.Post.PostDao
-import ru.netology.mylinledin.dao.Post.PostRemoteKeyDao
-import ru.netology.mylinledin.dao.Post.event.EventsDao
-import ru.netology.mylinledin.dao.Post.event.EventsRemoteKeyDao
+import ru.netology.mylinledin.dao.post.PostDao
+import ru.netology.mylinledin.dao.post.PostRemoteKeyDao
+import ru.netology.mylinledin.dao.post.event.EventsDao
+import ru.netology.mylinledin.dao.post.event.EventsRemoteKeyDao
 import ru.netology.mylinledin.dao.job.JobDao
 import ru.netology.mylinledin.dao.wall.WallDao
 import ru.netology.mylinledin.entity.PostEntity
 import ru.netology.mylinledin.entity.PostRemoteKeyEntity
-import ru.netology.mylinledin.entity.WallEntity.WallEntity
+import ru.netology.mylinledin.entity.wallEntity.WallEntity
 import ru.netology.mylinledin.entity.event.EventEntity
 import ru.netology.mylinledin.entity.event.EventsRemoteKeyEntity
 import ru.netology.mylinledin.entity.job.JobEntity

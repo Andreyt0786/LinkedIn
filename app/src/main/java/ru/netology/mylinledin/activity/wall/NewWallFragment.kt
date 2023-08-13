@@ -23,7 +23,6 @@ import ru.netology.mylinledin.databinding.FragmentNewPostBinding
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.util.AndroidUtils
 import ru.netology.mylinledin.util.StringArg
-import ru.netology.mylinledin.viewModel.PostViewModel
 import ru.netology.mylinledin.viewModel.WallViewModel
 
 
@@ -90,9 +89,18 @@ class NewWallFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                        viewModel.changeContent(binding.edit.text.toString())
-                        viewModel.save()
-                        AndroidUtils.hideKeyboard(requireView())
+                        if (binding.edit.text.toString().isNotEmpty()) {
+                            viewModel.changeContent(binding.edit.text.toString())
+                            viewModel.save()
+                            AndroidUtils.hideKeyboard(requireView())
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                R.string.New_Wall_Error,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        }
                         true
                     }
 

@@ -7,19 +7,12 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.dto.Job.Job
-import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.model.JobModel
 import ru.netology.mylinledin.model.JobModelState
-import ru.netology.mylinledin.model.MediaModel
-import ru.netology.mylinledin.model.WallModelState
-import ru.netology.mylinledin.model.WallPosts
 import ru.netology.mylinledin.repository.di.job.JobRepository
-import ru.netology.mylinledin.repository.di.wall.WallRepository
 import ru.netology.mylinledin.util.SingleLiveEvent
 import javax.inject.Inject
 
@@ -35,7 +28,6 @@ private val empty = Job(
 @HiltViewModel
 class JobViewModel @Inject constructor(
     private val repository: JobRepository,
-    appAuth: AppAuth,
 ) : ViewModel() {
 
 
@@ -46,11 +38,11 @@ class JobViewModel @Inject constructor(
     val dataMyJob: LiveData<JobModel> =
         repository.dataJob
             .map { jobs ->
-              JobModel(
+                JobModel(
                     jobs.map { it.copy(ownedByMe = true) },
                     jobs.isEmpty()
                 )
-    }.asLiveData(Dispatchers.Default)
+            }.asLiveData(Dispatchers.Default)
 
 
     val dataUserJob: LiveData<JobModel> = repository.dataJob.map { jobs ->
@@ -88,16 +80,6 @@ class JobViewModel @Inject constructor(
         }
     }
 
-    /* fun refreshPosts(id: Int) = viewModelScope.launch {
-         try {
-             _state.value = WallModelState(loading = true)
-             repository.getAllForWall(id)
-             _state.value = WallModelState()
-         } catch (e: Exception) {
-             _state.value = WallModelState(error = true)
-         }
-     }*/
-
     fun save() {
         edited.value?.let { post ->
             _postCreated.value = Unit
@@ -114,11 +96,11 @@ class JobViewModel @Inject constructor(
         }
     }
 
-    fun changeJob(nameJob: String, position: String,startJob : String) {
+    fun changeJob(nameJob: String, position: String, startJob: String) {
         val text = nameJob.trim()
         val newPosition = position.trim()
         val newStart = startJob.trim()
-        edited.value = edited.value?.copy(name = text, position =  newPosition, start = newStart)
+        edited.value = edited.value?.copy(name = text, position = newPosition, start = newStart)
     }
 
     fun changeFinish(finish: String) {

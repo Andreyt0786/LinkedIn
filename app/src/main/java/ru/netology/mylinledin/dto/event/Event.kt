@@ -1,7 +1,5 @@
 package ru.netology.mylinledin.dto.event
 
-import ru.netology.mylinledin.dto.posts.Attachment
-
 data class Event(
     val id: Int,
     val authorId: Int,
@@ -13,9 +11,6 @@ data class Event(
     val published: String,
     val type: String,
     val link: String?,
-//  val coords: Coordinates?,
-//val likeOwnerIds:List<Int>, узнать и добавить
-// val mentionIds:List<Int>,
     val likedByMe: Boolean,
     val participantedByMe: Boolean,
     val attachment: Attach?,

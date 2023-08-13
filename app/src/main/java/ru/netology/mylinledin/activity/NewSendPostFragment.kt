@@ -25,6 +25,7 @@ class NewSendPostFragment : Fragment() {
     companion object {
         var Bundle.textArg: String? by StringArg
     }
+
     private val viewModel: PostViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,11 +52,12 @@ class NewSendPostFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.save -> {
-                            viewModel.changeContent(binding.edit.text.toString())
-                            viewModel.save()
-                            AndroidUtils.hideKeyboard(requireView())
+                        viewModel.changeContent(binding.edit.text.toString())
+                        viewModel.save()
+                        AndroidUtils.hideKeyboard(requireView())
                         true
                     }
+
                     else -> false
                 }
             }

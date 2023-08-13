@@ -1,6 +1,5 @@
-package ru.netology.mylinledin.adapter
+package ru.netology.mylinledin.adapter.job
 
-import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,11 +9,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.CardJobBinding
 import ru.netology.mylinledin.dto.Job.Job
-import ru.netology.mylinledin.dto.posts.AttachmentType
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -74,10 +71,10 @@ class JobViewHolder(
                 binding.endDate.isVisible = false
             } else {
                 val actualFinish = OffsetDateTime.parse(job.finish, DateTimeFormatter.ISO_DATE_TIME)
-                val formatDateTime = actualFinish.format(formatter)
+                val endDateTime = actualFinish.format(formatter)
                 binding.end.isVisible = true
                 binding.endDate.isVisible = true
-                endDate.text = formatDateTime
+                endDate.text = endDateTime
             }
 
             if (job.link.isNullOrEmpty()) {

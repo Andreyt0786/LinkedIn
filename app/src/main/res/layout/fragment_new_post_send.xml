@@ -12,14 +12,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-            <EditText
-                android:id="@+id/edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="32dp"
-                android:background="@android:color/transparent"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="32dp"
+            android:background="@android:color/transparent"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
 
 
     </ScrollView>

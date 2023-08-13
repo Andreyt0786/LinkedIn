@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.netology.mylinledin.entity.WallEntity.WallEntity
+import ru.netology.mylinledin.entity.wallEntity.WallEntity
 
 @Dao
 interface WallDao {
@@ -16,7 +16,7 @@ interface WallDao {
     @Query("SELECT * FROM WallEntity WHERE authorId = :authorId ORDER BY id DESC")
     fun getForWall(authorId: Int): Flow<List<WallEntity>>
 
-    @Query("SELECT * FROM WallEntity ORDER BY id DESC")// WHERE hidden = 0 ORDER BY id DESC" убрал пока не работает обновление
+    @Query("SELECT * FROM WallEntity ORDER BY id DESC")
     fun getPagingSource(): PagingSource<Int, WallEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -26,7 +26,7 @@ interface WallDao {
     suspend fun insertWall(posts: List<WallEntity>)
 
     @Query("UPDATE WallEntity SET content = :content WHERE id = :id")
-    suspend fun updateContentByIdWall(id:Int, content: String)
+    suspend fun updateContentByIdWall(id: Int, content: String)
 
     suspend fun saveWall(post: WallEntity) =
         if (post.id == 0) insertWall(post) else updateContentByIdWall(post.id, post.content)

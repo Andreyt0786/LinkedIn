@@ -6,11 +6,11 @@ import android.content.Context
 import android.os.Build
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.gson.Gson
-import ru.netology.mylinledin.auth.AppAuth
 import ru.netology.mylinledin.R
+import ru.netology.mylinledin.auth.AppAuth
 import javax.inject.Inject
 
-class FCMService: FirebaseMessagingService() {
+class FCMService : FirebaseMessagingService() {
     private val action = "action"
     private val content = "content"
     private val channelId = "remote"
@@ -36,6 +36,6 @@ class FCMService: FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        //appAuth.uploadPushToken(token)
+
     }
 }

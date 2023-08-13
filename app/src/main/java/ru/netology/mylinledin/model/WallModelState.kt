@@ -9,6 +9,6 @@ class WallModelState(
 )
 
 data class WallPosts(
-    var posts: List<Post> = emptyList(),
+    val posts: List<Post> = emptyList(),
     val empty: Boolean = false,
 )

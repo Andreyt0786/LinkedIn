@@ -1,12 +1,10 @@
 package ru.netology.mylinledin.dao.job
 
-import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.netology.mylinledin.entity.WallEntity.WallEntity
 import ru.netology.mylinledin.entity.job.JobEntity
 
 @Dao

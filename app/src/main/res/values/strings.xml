@@ -75,4 +75,7 @@
     <string name="date_time">Date time   </string>
     <string name="Choose_date">Pick date</string>
     <string name="Pick_time">Pick time</string>
+    <string name="New_Event_Error">Need to fill event and date of it</string>
+    <string name="New_Job_error">Need to fill Job, Position and start of Job</string>
+    <string name="New_Wall_Error">Need to fill Content</string>
 </resources>

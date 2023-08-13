@@ -89,10 +89,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing"
             android:text="@string/end_job"
-            app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/start_date" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_date"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/end_date"
@@ -101,11 +101,11 @@
             android:autoLink="web"
             android:lineSpacingMultiplier="1.5"
             android:paddingBottom="@dimen/common_spacing2"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/end"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text=" август 2023 " />
+            tools:text=" август 2023 "
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/link"
@@ -113,10 +113,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing"
             android:text="@string/link_job"
-            app:layout_constraintStart_toStartOf="parent"
             android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintTop_toBottomOf="@id/end_date" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/end_date"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/author_link"
@@ -125,11 +125,11 @@
             android:autoLink="web"
             android:lineSpacingMultiplier="1.5"
             android:paddingBottom="@dimen/common_spacing"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/link"
-            android:visibility="gone"
-            tools:visibility="visible"
-            tools:text="Привет, контакты для связи " />
+            tools:text="Привет, контакты для связи "
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

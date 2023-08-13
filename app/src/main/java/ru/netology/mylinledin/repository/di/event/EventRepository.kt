@@ -9,9 +9,9 @@ interface EventRepository {
     val dataEvent: Flow<PagingData<Event>>
     suspend fun getAllEvents()
     suspend fun likeByIdEvents(event: Event)
-    suspend fun saveEvents (event: Event)
-    suspend fun removeByIdEvents (id: Int)
-    suspend fun saveWithAttachmentEvents (file: File, event: Event)
+    suspend fun saveEvents(event: Event)
+    suspend fun removeByIdEvents(id: Int)
+    suspend fun saveWithAttachmentEvents(file: File, event: Event)
 
 
 }

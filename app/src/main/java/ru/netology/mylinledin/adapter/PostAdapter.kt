@@ -1,11 +1,9 @@
 package ru.netology.mylinledin.adapter
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.MediaController
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -13,13 +11,10 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.internal.ContextUtils.getActivity
-import com.google.firebase.BuildConfig
 import ru.netology.mylinledin.R
 import ru.netology.mylinledin.databinding.CardPostBinding
 import ru.netology.mylinledin.dto.posts.AttachmentType
 import ru.netology.mylinledin.dto.posts.Post
-import ru.netology.mylinledin.mediaPlayer.MediaLifecycleObserver
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -72,12 +67,6 @@ class PostViewHolder(
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun bind(post: Post) {
-        /*  val url = post.authorAvatar
-          Glide.with(binding.avatar)
-              .load(url)
-              .timeout(10000)
-              .circleCrop()
-              .into(binding.avatar)*/
 
         val actual = OffsetDateTime.parse(post.published, DateTimeFormatter.ISO_DATE_TIME)
         val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
@@ -87,18 +76,12 @@ class PostViewHolder(
             author.text = post.author
             published.text = formatDateTime
             content.text = post.content
-            // в адаптере
             like.isChecked = post.likedByMe
             menu.isVisible = post.ownedByMe
 
-            val urlNoAva = "https://znaet.petrovich.ru/assets/image/no-avatar.png"
-            if(post.authorAvatar.isNullOrEmpty()){
-                Glide.with(binding.avatar)
-                    .load(urlNoAva)
-                    .timeout(10000)
-                    .circleCrop()
-                    .into(binding.avatar)
 
+            if (post.authorAvatar.isNullOrEmpty()) {
+                binding.avatar.setImageResource(R.mipmap.ic_launcher_no_ava)
             } else {
                 val url = post.authorAvatar
                 Glide.with(binding.avatar)
@@ -123,7 +106,6 @@ class PostViewHolder(
             }
 
             if (post.attachment?.type == AttachmentType.VIDEO) {
-                val urlVideo = post.attachment.url
 
                 binding.video.isVisible = true
                 binding.playButtom.isVisible = true
@@ -131,7 +113,6 @@ class PostViewHolder(
 
                 binding.playButtom.setOnClickListener {
                     binding.video.apply {
-                        // Удален MediaController
 
                         setVideoURI(
                             Uri.parse(post.attachment.url)
@@ -149,12 +130,7 @@ class PostViewHolder(
                 binding.playButtom.isVisible = false
             }
 
-            if (post.attachment?.type == AttachmentType.AUDIO) {
-                val urlAudio = post.attachment.url
-                binding.play.isVisible = true
-            } else {
-                binding.play.isVisible = false
-            }
+            binding.play.isVisible = post.attachment?.type == AttachmentType.AUDIO
 
 
 

@@ -24,11 +24,11 @@
             android:id="@+id/getNewPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
             android:text="@string/get_new_post"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="48dp"
             app:layout_constraintTop_toBottomOf="@id/loadNewPosts" />
 
         <androidx.constraintlayout.widget.Group
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:constraint_referenced_ids="getNewPost,loadNewPosts" />
+
         <TextView
             android:id="@+id/emptyText"
             android:layout_width="wrap_content"
@@ -88,21 +89,19 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
+        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:visibility="gone"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        />
+        android:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/job_buttom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/add_job"
-        app:srcCompat="@drawable/baseline_business_center_24"
         android:visibility="gone"
         app:layout_anchor="@id/bottomAppBar"
-        />
+        app:srcCompat="@drawable/baseline_business_center_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package ru.netology.mylinledin.dao.Post.event
+package ru.netology.mylinledin.dao.post.event
 
 import androidx.room.Dao
 import androidx.room.Insert

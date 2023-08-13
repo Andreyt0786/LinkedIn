@@ -4,8 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
-import ru.netology.mylinledin.repository.di.PostRepository.PostRepositoryImpl
+import ru.netology.mylinledin.repository.di.postRepository.PostRepository
+import ru.netology.mylinledin.repository.di.postRepository.PostRepositoryImpl
 import ru.netology.mylinledin.repository.di.event.EventRepository
 import ru.netology.mylinledin.repository.di.event.EventRepositoryImpl
 import ru.netology.mylinledin.repository.di.job.JobRepository

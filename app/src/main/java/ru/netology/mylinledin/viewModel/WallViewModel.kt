@@ -15,7 +15,6 @@ import ru.netology.mylinledin.dto.posts.Post
 import ru.netology.mylinledin.model.MediaModel
 import ru.netology.mylinledin.model.WallModelState
 import ru.netology.mylinledin.model.WallPosts
-import ru.netology.mylinledin.repository.di.PostRepository.PostRepository
 import ru.netology.mylinledin.repository.di.wall.WallRepository
 import ru.netology.mylinledin.util.SingleLiveEvent
 import javax.inject.Inject
@@ -28,10 +27,7 @@ private val empty = Post(
     authorJob = null,
     content = "",
     published = "",
-    //coords = null,
     link = null,
-    // likeOwnerIds = emptyList<Int>(),
-    // mentionIds = emptyList<Int>(),
     mentiondMe = false,
     likedByMe = false,
     attachment = null,
@@ -50,14 +46,14 @@ class WallViewModel @Inject constructor(
     val state: LiveData<WallModelState>
         get() = _state
 
-    val data:LiveData<WallPosts> = appAuth.authStateFlow.flatMapLatest { (id, _) ->
+    val data: LiveData<WallPosts> = appAuth.authStateFlow.flatMapLatest { (id, _) ->
         repository.dataUser
             .map { posts ->
-            WallPosts(
-                posts.map { it.copy(ownedByMe = it.authorId == id) },
-                posts.isEmpty()
-            )
-        }
+                WallPosts(
+                    posts.map { it.copy(ownedByMe = it.authorId == id) },
+                    posts.isEmpty()
+                )
+            }
     }.asLiveData(Dispatchers.Default)
 
     private val _mediaState = MutableLiveData<MediaModel?>()
@@ -71,7 +67,7 @@ class WallViewModel @Inject constructor(
         get() = _postCreated
 
 
-    fun loadPosts(id:Int) = viewModelScope.launch {
+    fun loadPosts(id: Int) = viewModelScope.launch {
         try {
             _state.value = WallModelState(loading = true)
             repository.getAllForWall(id)
@@ -81,7 +77,7 @@ class WallViewModel @Inject constructor(
         }
     }
 
-   fun refreshPosts(id:Int) = viewModelScope.launch {
+    fun refreshPosts(id: Int) = viewModelScope.launch {
         try {
             _state.value = WallModelState(loading = true)
             repository.getAllForWall(id)
@@ -89,7 +85,7 @@ class WallViewModel @Inject constructor(
         } catch (e: Exception) {
             _state.value = WallModelState(error = true)
         }
-   }
+    }
 
     fun changeMedia(mediaModel: MediaModel?) {
         _mediaState.value = mediaModel
@@ -102,7 +98,7 @@ class WallViewModel @Inject constructor(
             viewModelScope.launch {
                 try {
                     _mediaState.value?.let { mediaModel ->
-                       repository.saveWithAttachment(mediaModel.file, post)
+                        repository.saveWithAttachment(mediaModel.file, post)
                     } ?: repository.save(post)
                     _state.value = WallModelState()
                 } catch (e: Exception) {
@@ -134,9 +130,9 @@ class WallViewModel @Inject constructor(
         }
     }
 
-        fun removeById(id: Int) {
-            viewModelScope.launch {
-                repository.removeById(id)
-            }
+    fun removeById(id: Int) {
+        viewModelScope.launch {
+            repository.removeById(id)
         }
     }
+}
